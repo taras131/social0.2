@@ -1,4 +1,6 @@
-import React from "react";
+import messagesReducer from "./messagesReducer";
+import profileReducer from "./profileReducer";
+import sidebarReducer from "./sidebarReducer";
 
 let store = {
 	_state: {
@@ -10,7 +12,6 @@ let store = {
 			],
 			inputValue : ``
 		},
-	
 		messagesInformation: {
 			dialogsData: [
 				{id: 1, name : "ivan", url : "https://i.gjcdn.net/data/fireside/posts/23/163/1491663/media/5f7-raxzkzk7.jpg"},
@@ -28,8 +29,7 @@ let store = {
 				{id: 5, text: "ты негодяй!", likescount: 4}
 			],
 			inputValue : ``			
-		},
-	
+		},	
 		sitebarInformation: {
 			colleagueData: [
 				{id: 1, name : "ivan", url : "https://i.gjcdn.net/data/fireside/posts/23/163/1491663/media/5f7-raxzkzk7.jpg"},
@@ -41,50 +41,22 @@ let store = {
 			]
 		}
 	},
-
-	_reRenderDOM () {
+	_reRenderDOM() {
 		console.log(`1`);
 	},
-
 	dispatch(action) {
-		if (action.type === "ADDPOST"){
-			let newPost = {
-				id:11,
-				text: this._state.profileInformation.inputValue,
-				likescount: 0
-			}
-			this._state.profileInformation.postData.push(newPost);
-			this._state.profileInformation.inputValue = ``;			
-			this._reRenderDOM(store._state);
-		} else if (action.type === "INPUTPOST") {
-					this._state.profileInformation.inputValue = action.postimput;
-					this._reRenderDOM(store._state);	
-				} else if(action.type === "ADDMESSAGE"){
-							let newMessage = {
-								id:5,
-								text: this._state.messagesInformation.inputValue,
-								likescount: 0
-							}
-							this._state.messagesInformation.messagesData.push(newMessage);
-							this._state.messagesInformation.inputValue = ``;
-							this._reRenderDOM(store._state);
-							} else if(action.type === "MESSAGEINPUT") {
-										this._state.messagesInformation.inputValue = action.messageimput;
-										this._reRenderDOM(store._state);	
-							        }
+		this._state.profileInformation = profileReducer(this._state.profileInformation, action);
+		this._state.messagesInformation =  messagesReducer(this._state.messagesInformation,action);
+		this._state.sitebarInformation =  sidebarReducer(this._state.sitebarInformation,action);
+		this._reRenderDOM(this._state);
 	},
 
 	getState() {
 		return this._state;
 	},
-
 	suscribe(observer) {
 		store._reRenderDOM = observer;
 	},
-
 }
-
-
-
 
 export default store;

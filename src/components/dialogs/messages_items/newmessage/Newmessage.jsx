@@ -1,22 +1,18 @@
 import React from "react";
+import {sendNewMessageCreatorAction, inputCreatorAction} from "../../../../redux/messagesReducer";
 import style from "./Newmessage.module.css";
 
 const Newmessage = (props) =>{
-
-    const newMessageElement = React.createRef();
-
-    const postNewMessage = () => {
-        props.dispatch({type: "ADDMESSAGE" });
+    const sendNewMessage = () => {
+        props.dispatch(sendNewMessageCreatorAction());
     }
-
-    const input = () => {
-        props.dispatch({type: "MESSAGEINPUT", messageimput: newMessageElement.current.value })
+    const input = (e) => {
+        props.dispatch(inputCreatorAction(e.target.value));
     }
-
     return (
         <div className = {style.newmessage}>
-            <input onChange = {input} ref = {newMessageElement} value = {props.inputValue}  /> 
-            <button onClick= {postNewMessage} >Отправить</button>
+            <input onChange = {input} value = {props.inputValue}  /> 
+            <button onClick= {sendNewMessage} >Отправить</button>
         </div>
     );
 }

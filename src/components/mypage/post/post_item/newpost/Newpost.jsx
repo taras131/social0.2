@@ -1,24 +1,17 @@
 import React from "react";
 import style from "./Newpost.module.css";
+import {addPostCreatioAction, inputCreatioAction} from "../../../../../redux/profileReducer";
 
 const Newpost = (props) => {
-
-    const newPostElement = React.createRef();
-
     const addPost = () => {
-        props.dispatch({type: "ADDPOST"});
+        props.dispatch(addPostCreatioAction());
     };
-
-    const input = () => {
-        props.dispatch({
-            type: "INPUTPOST",
-            postimput: (newPostElement.current.value )
-        });
+    const input = (e) => {
+        props.dispatch(inputCreatioAction(e.target.value));
     };
-
     return (
         <div className = {style.newpost}>
-            <input onChange = {input} ref ={newPostElement} value = {props.profileInformation.inputValue} /> 
+            <input onChange = {input} value = {props.profileInformation.inputValue} /> 
             <button onClick = {addPost}>Опубликовать</button>
         </div>
     );
