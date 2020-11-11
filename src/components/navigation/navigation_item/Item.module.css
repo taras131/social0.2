@@ -11,7 +11,7 @@
     border-radius: 4px;
   }
   
-  .sitebar {
+  .sidebar {
     text-decoration: none;
     font-size: 20px;
     min-height: 250px;
@@ -23,7 +23,7 @@
     padding: 10px;
   }
 
-  .sitebar_items{
+  .sidebar_items{
     display:grid;
     grid-template-columns: 1fr 1fr 1fr;
     margin-top: 10px;

@@ -4,7 +4,7 @@ import Message from "./navigation_item/Message";
 import News from "./navigation_item/News";
 import Music from "./navigation_item/Music";
 import Setting from "./navigation_item/Setting";
-import Sitebar from "./navigation_item/Sitebar"
+import Sidebar from "./navigation_item/Sidebar"
 import style from "./Navigation.module.css";
 import { NavLink } from "react-router-dom";
 
@@ -16,7 +16,7 @@ const Navigation = (props) =>{
           <NavLink to = "/news"> <News /></NavLink>
           <NavLink to = "/music"> <Music /></NavLink>
           <NavLink to = "/setting"> <Setting /></NavLink>
-          <NavLink to = "/colleague"> <Sitebar sitebarInformation = {props.sitebarInformation} /></NavLink>
+          <NavLink to = "/colleague"> <Sidebar sidebarInformation = {props.sidebarInformation} /></NavLink>
         </nav>
     );
 }

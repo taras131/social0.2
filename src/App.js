@@ -17,7 +17,7 @@ import { BrowserRouter, Route } from "react-router-dom";
     <BrowserRouter>
       <div className = "app_wrapper">
         <Header />
-        <Navigation sitebarInformation ={props.state.sitebarInformation} />
+        <Navigation sidebarInformation ={props.state.sidebarInformation} />
 
         <div className = "app_wrapper_content">			  
 			<Route path ="/profile" 

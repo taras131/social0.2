@@ -1,6 +1,6 @@
-import style from "./Sitebar_item.module.css";
+import style from "./Sidebar_item.module.css";
 
-const Sitebaritem = (props) => {
+const Sidebaritem = (props) => {
     return (
         <div className = {style.item}>
             <div>
@@ -13,4 +13,4 @@ const Sitebaritem = (props) => {
     );
 }
 
-export default Sitebaritem;
+export default Sidebaritem;

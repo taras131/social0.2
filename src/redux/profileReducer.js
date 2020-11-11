@@ -1,4 +1,13 @@
-const profileReducer = (state,action) => {
+let initialState = {
+    postData: [
+        {id: 1, name:"Taras", text: "Это мой первый пост", likescount: 200 },
+        {id: 2, name:"Taras", text: "Это мой второй пост", likescount: 700 },
+        {id: 3, name:"Taras", text: "это я запостил из индекс js, прокинув пропс через Route!!! ", likescount: 500 }
+    ],
+    inputValue : ``
+}
+
+const profileReducer = (state = initialState, action) => {
     const ADDPOST = "ADDPOST",
           INPUTPOST = "INPUTPOST";
     switch(action.type){
