@@ -1,0 +1,20 @@
+  .ava{
+    margin-top: 10px;
+    display: grid;
+    grid-template-areas: 
+    "im ad";
+  
+    grid-template-rows: 170px;
+    grid-template-columns: 3fr 8fr;
+    grid-gap: 10px;
+  }
+  
+  .ava img{
+    grid-area: im;
+    border-radius: 4px;
+  }
+  
+  .discription{
+    grid-area: ad;
+    font-size: 20px
+  }

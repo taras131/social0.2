@@ -1,0 +1,28 @@
+.header{
+    grid-area: h;
+    background-color: green;
+    border-radius: 4px;
+    padding: 20px;
+    background: radial-gradient(at top, #FEFFFF, #A7CECC);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  .header img{
+    width: 40px;
+  }
+  
+  .header .title h1{
+    font-size: 25px;
+    text-align: center;
+    color:  #800080;
+  }
+  
+  .header .title h2{
+    font-size: 15px;
+    text-align: right;
+    color:  #800080;
+  }
+  
+ 

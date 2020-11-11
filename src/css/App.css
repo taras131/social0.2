@@ -1,0 +1,25 @@
+.app_wrapper{
+  display: grid;
+  width: 1140px;
+  margin: 0 auto;
+
+  grid-template-areas: 
+  "h h"
+  "n mc";
+
+  grid-template-rows: 150px 1fr;
+  grid-template-columns: 2fr 10fr;
+  grid-gap: 10px;
+ 
+}
+
+.app_wrapper_content {
+  grid-area: mc;
+  background-color: #d9d7d7;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.active {
+  color: gold;
+}

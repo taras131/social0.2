@@ -1,0 +1,36 @@
+  .item {
+    text-decoration: none;
+    font-size: 20px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: solid;
+    border-color:#FFFAF0;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .sitebar {
+    text-decoration: none;
+    font-size: 20px;
+    min-height: 250px;
+    border-bottom: solid;
+    border-color:#FFFAF0;
+    cursor: pointer;
+    border-radius: 4px;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .sitebar_items{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-top: 10px;
+  }
+
+  .active {
+    color: red;
+  }
+ 
+

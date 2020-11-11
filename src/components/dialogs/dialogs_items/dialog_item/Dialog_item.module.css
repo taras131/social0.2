@@ -1,0 +1,17 @@
+.item{ 
+    width: 90%;
+    height: 60px;
+    border-bottom: solid;
+    border-color: #ffffff;
+    cursor: pointer;
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+}
+
+.item img{
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+}

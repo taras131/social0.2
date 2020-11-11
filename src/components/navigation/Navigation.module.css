@@ -1,0 +1,9 @@
+.nav{
+    grid-area: n;
+    background-color: green;
+    border-radius: 4px;
+    background: radial-gradient(at top, #FEFFFF, #A7CECC);
+  }
+.nav a {
+  text-decoration: none;
+}
