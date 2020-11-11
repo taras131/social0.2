@@ -1,6 +1,7 @@
 import style from "./Message_items.module.css";
 import Message_item from "./message_item/Message_item";
 import Newmessage from "./newmessage/Newmessage";
+import NewmessageContainer from "./newmessage/NewmessageContainer";
 
 const Message_items = (props) =>{
 
@@ -11,7 +12,7 @@ const Message_items = (props) =>{
             <div>
                 {messagesElements}
             </div>
-           <Newmessage dispatch = {props.dispatch} inputValue = {props.messagesInformation.inputValue} />
+           <NewmessageContainer store = {props.store} />
         </div>
     );
 }

@@ -4,14 +4,14 @@ import {addPostCreatioAction, inputCreatioAction} from "../../../../../redux/pro
 
 const Newpost = (props) => {
     const addPost = () => {
-        props.dispatch(addPostCreatioAction());
+        props.addPost();
     };
     const input = (e) => {
-        props.dispatch(inputCreatioAction(e.target.value));
+        props.input(e.target.value);
     };
     return (
         <div className = {style.newpost}>
-            <input onChange = {input} value = {props.profileInformation.inputValue} /> 
+            <input onChange = {input} value = {props.inputValue} />
             <button onClick = {addPost}>Опубликовать</button>
         </div>
     );

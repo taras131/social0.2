@@ -21,13 +21,11 @@ import { BrowserRouter, Route } from "react-router-dom";
 
         <div className = "app_wrapper_content">			  
 			<Route path ="/profile" 
-		    	render = { () => <Mypage 
-				profileInformation = {props.state.profileInformation}
-				dispatch = {props.dispatch} />}  />
+		    	render = { () => <Mypage store = {props.store} />}  />
         
         	<Route path ="/dialogs" render = { () => <Dialogs 
             	messagesInformation = {props.state.messagesInformation}
-				dispatch = {props.dispatch}  />}  />
+                store = {props.store} />}  />
 
           	<Route path ="/news" component = {News} />
           	<Route path ="/music" component = {Music} />

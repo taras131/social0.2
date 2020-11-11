@@ -9,8 +9,7 @@ const Mypage = (props) =>{
         <div className = {style.mypage}>
             <Screen/>  
             <Ava/>
-            <Post profileInformation = {props.profileInformation} 
-                  dispatch = {props.dispatch} />
+            <Post store = {props.store} />
         </div>
     );
 }
