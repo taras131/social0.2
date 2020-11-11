@@ -1,25 +1,22 @@
 import {addPostCreatioAction, inputCreatioAction} from "../../../../../redux/profileReducer";
 import React from "react";
 import Newpost from "./Newpost";
-import StoreContext from "../../../../../redux/StoreContext";
+import connect from "react-redux/lib/connect/connect";
 
-const NewpostContainer = () =>{
-    return (
-        <StoreContext.Consumer>
-            {
-                (store) =>{
-                    const addPost = () => {
-                        store.dispatch(addPostCreatioAction());
-                    };
-                    const input = (text) => {
-                        store.dispatch(inputCreatioAction(text));
-                    };
-                    return (<Newpost input = {input} addPost = {addPost}
-                                     inputValue = {store.getState().profileInformation.inputValue} />
-                    );
-                }
-            }
-        </StoreContext.Consumer>)
+const mapStateToProps = (state) =>{
+    return {
+        inputValue: state.profileInformation.inputValue
+    }
 }
-
+const mapDispatchToProps = (dispatch) =>{
+    return {
+        addPost: () => {
+            dispatch(addPostCreatioAction())
+        },
+        input: (text) => {
+            dispatch(inputCreatioAction(text))
+        }
+    }
+}
+const NewpostContainer = connect(mapStateToProps, mapDispatchToProps)(Newpost);
 export default NewpostContainer;

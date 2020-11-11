@@ -10,7 +10,7 @@ const Newmessage = (props) =>{
     }
     return (
         <div className = {style.newmessage}>
-            <input onChange = {input} value = {props.inputValue}  />
+            <input onChange = {input} value = {props.inputValue} />
             <button onClick= {sendNewMessage} >Отправить</button>
         </div>
     );

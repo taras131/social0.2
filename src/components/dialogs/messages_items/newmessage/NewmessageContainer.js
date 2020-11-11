@@ -1,27 +1,23 @@
 import React from "react";
 import {sendNewMessageCreatorAction, inputCreatorAction} from "../../../../redux/messagesReducer";
 import Newmessage from "./Newmessage";
-import StoreContext from "../../../../redux/StoreContext";
+import connect from "react-redux/lib/connect/connect";
 
-
-const NewmessageContainer = () =>{
-    return (
-        <StoreContext.Consumer>
-            {
-                (store) =>{
-                    const sendNewMessage = () => {
-                        store.dispatch(sendNewMessageCreatorAction());
-                    }
-                    const input = (text) => {
-                        store.dispatch(inputCreatorAction(text));
-                    }
-                    return (
-                        <Newmessage sendNewMessage = {sendNewMessage} input = {input}
-                                    inputValue = {store.getState().messagesInformation.inputValue} />
-                    );
-                }
-            }
-        </StoreContext.Consumer>)
+const mapStateToProps = (state) =>{
+    return {
+        inputValue: state.messagesInformation.inputValue
+    }
 }
+const mapDispatchToProps = (dispatch) =>{
+    return {
+        sendNewMessage: () => {
+            dispatch(sendNewMessageCreatorAction());
+        },
+        input: (text) => {
+            dispatch(inputCreatorAction(text));
+        }
+    }
+}
+const NewmessageContainer = connect(mapStateToProps,mapDispatchToProps)(Newmessage);
 
 export default NewmessageContainer;

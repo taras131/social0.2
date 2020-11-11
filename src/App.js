@@ -7,12 +7,9 @@ import Dialogs from "./components/dialogs/Dialogs";
 import News from "./components/news/News";
 import Music from "./components/music/Music";
 import Setting from "./components/setting/Setting"
-
 import { BrowserRouter, Route } from "react-router-dom";
 
-
-
- const App = (props) =>  {
+const App = (props) =>  {
   return (
     <BrowserRouter>
       <div className = "app_wrapper">

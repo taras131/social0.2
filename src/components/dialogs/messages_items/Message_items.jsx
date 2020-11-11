@@ -12,7 +12,7 @@ const Message_items = (props) =>{
             <div>
                 {messagesElements}
             </div>
-           <NewmessageContainer store = {props.store} />
+           <NewmessageContainer />
         </div>
     );
 }
