@@ -1,18 +1,12 @@
 import style from "./Dialogs_items.module.css";
-import Dialog_item from "./dialog_item/Dialog_item";
-import { Route, NavLink } from "react-router-dom";
+import React from "react";
+import DialogItemContainer from "./dialog_item/DialogItemContainer"
 
-const Dialogs_items = (props) => {
-
-    let dialogsElements = props.dialogsData.map(item => <Dialog_item id = {item.id} img = {item.url} name = {item.name} />);
-  
+const Dialogs_items = () => {
     return (
         <div className = {style.dialogs_items} >
-            <div>
-                {dialogsElements}
-            </div>            
+             <DialogItemContainer />
         </div>
-
     )
 }
 

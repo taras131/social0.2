@@ -1,16 +1,12 @@
 import style from "./Message_items.module.css";
-import Message_item from "./message_item/Message_item";
-import Newmessage from "./newmessage/Newmessage";
 import NewmessageContainer from "./newmessage/NewmessageContainer";
+import Message_itemContainer from "./message_item/Message_itemContainer";
 
 const Message_items = (props) =>{
-
-    let messagesElements = props.messagesInformation.messagesData.map(item => <Message_item text = {item.text} count = {item.likescount} />);
- 
     return (
         <div className = {style.messages}>
             <div>
-                {messagesElements}
+             <Message_itemContainer />
             </div>
            <NewmessageContainer />
         </div>

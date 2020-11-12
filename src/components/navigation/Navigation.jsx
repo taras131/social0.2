@@ -8,7 +8,7 @@ import Sidebar from "./navigation_item/Sidebar"
 import style from "./Navigation.module.css";
 import { NavLink } from "react-router-dom";
 
-const Navigation = (props) =>{
+const Navigation = () =>{
     return (
         <nav className = {style.nav}>
           <NavLink to = "/profile"> <Profile /></NavLink>
@@ -16,7 +16,7 @@ const Navigation = (props) =>{
           <NavLink to = "/news"> <News /></NavLink>
           <NavLink to = "/music"> <Music /></NavLink>
           <NavLink to = "/setting"> <Setting /></NavLink>
-          <NavLink to = "/colleague"> <Sidebar sidebarInformation = {props.sidebarInformation} /></NavLink>
+          <NavLink to = "/colleague"> <Sidebar /></NavLink>
         </nav>
     );
 }

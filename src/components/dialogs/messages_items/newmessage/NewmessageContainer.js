@@ -1,7 +1,7 @@
 import React from "react";
 import {sendNewMessageCreatorAction, inputCreatorAction} from "../../../../redux/messagesReducer";
 import Newmessage from "./Newmessage";
-import connect from "react-redux/lib/connect/connect";
+import {connect} from "react-redux";
 
 const mapStateToProps = (state) =>{
     return {

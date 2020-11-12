@@ -1,9 +1,13 @@
 import style from "./Message_item.module.css";
+import React from "react";
+import Message from "./message/Message";
 
 const Message_item = (props) => {
+    let messagesElements = props.messagesData.map(item => {
+        return (<Message text = {item.text} count = {item.likescount} />)});
     return (
-        <div className = {style.messages_item}>
-            {props.text} 
+        <div>
+            {messagesElements}
         </div>
     );
 }

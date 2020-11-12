@@ -1,7 +1,7 @@
 import {addPostCreatioAction, inputCreatioAction} from "../../../../../redux/profileReducer";
 import React from "react";
 import Newpost from "./Newpost";
-import connect from "react-redux/lib/connect/connect";
+import {connect} from "react-redux";
 
 const mapStateToProps = (state) =>{
     return {
