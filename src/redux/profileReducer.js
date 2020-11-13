@@ -10,19 +10,21 @@ let initialState = {
 const profileReducer = (state = initialState, action) => {
     const ADDPOST = "ADDPOST",
           INPUTPOST = "INPUTPOST";
+    let temporaryState;
     switch(action.type){
         case ADDPOST:
-            let newPost = {
-                id:11,
-                text: state.inputValue,
-                likescount: 0
-            }
-            state.postData.push(newPost);
-            state.inputValue = ``;			
-            return state;
+            temporaryState = {
+                ...state,
+                inputValue: ``,
+                postData: [...state.postData,{id: 11, text: state.inputValue, likescount: 0}]
+            };
+            return temporaryState;
         case INPUTPOST:
-            state.inputValue = action.postimput;	
-            return state;
+            temporaryState = {
+                ...state,
+                inputValue: action.postimput
+            };
+            return temporaryState;
         default:
             return state;
     }

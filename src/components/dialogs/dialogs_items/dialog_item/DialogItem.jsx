@@ -4,7 +4,7 @@ import React from "react";
 
 const DialogItem = (props) => {
     let dialogsElements = props.dialogsData.map(item => {
-        return (<Dialog id = {item.id} img = {item.url} name = {item.name} />)});
+        return (<Dialog id = {item.id} key = {item.id} img = {item.url} name = {item.name} />)});
     return (
         <div>
             {dialogsElements}

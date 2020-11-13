@@ -20,19 +20,21 @@ let initialState = {
 const messagesReducer = (state = initialState, action) => {
     const  ADDMESSAGE = "ADDMESSAGE",
            MESSAGEINPUT = "MESSAGEINPUT";
+    let temporaryState;
     switch(action.type) {
         case ADDMESSAGE:
-            let newMessage = {
-                id:5,
-                text: state.inputValue,
-                likescount: 0
-            }
-            state.messagesData.push(newMessage);
-            state.inputValue = ``;
-            return state;
+            temporaryState = {
+                ...state,
+                inputValue: ``,
+                messagesData: [...state.messagesData, {id: 5, text: state.inputValue, likescount: 0}]
+            };
+            return temporaryState;
         case MESSAGEINPUT:
-            state.inputValue = action.messageimput;	
-            return state;
+            temporaryState = {
+            ...state,
+            inputValue: action.messageimput
+            };
+            return temporaryState;
         default:
             return state;
     }

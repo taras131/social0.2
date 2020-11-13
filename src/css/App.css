@@ -15,7 +15,7 @@
 
 .app_wrapper_content {
   grid-area: mc;
-  background-color: #d9d7d7;
+  background: radial-gradient(at top, #FEFFFF, #A7CECC);
   border-radius: 4px;
   padding: 5px;
 }

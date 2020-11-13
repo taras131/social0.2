@@ -3,10 +3,10 @@ import React from "react";
 
 const PostPublished = (props) =>{
     let postsElements = props.postData.map(item => {
-        return <Post name ="Taras" text ={item.text} count ={item.likescount} />
+        return <Post name ="Taras" key = {item.id} text = {item.text} count = {item.likescount} />
     });
     return( <div>
-            {postsElements}
+                {postsElements}
             </div>)
 }
 

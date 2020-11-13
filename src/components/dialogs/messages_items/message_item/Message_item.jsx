@@ -4,7 +4,7 @@ import Message from "./message/Message";
 
 const Message_item = (props) => {
     let messagesElements = props.messagesData.map(item => {
-        return (<Message text = {item.text} count = {item.likescount} />)});
+        return (<Message text = {item.text} key = {item.id} count = {item.likescount} />)});
     return (
         <div>
             {messagesElements}
