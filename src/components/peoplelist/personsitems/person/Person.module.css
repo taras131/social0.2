@@ -25,11 +25,7 @@
 }
 
 button{
-    cursor: pointer;
-    width: 70px;
-    height: 70px;
-    border-radius: 4px;
-    font-size: 15px;
+    background-color: dodgerblue;
 }
 
 .personitems{
@@ -41,9 +37,19 @@ button{
 }
 
 .buttonremove{
+    cursor: pointer;
+    width: 70px;
+    height: 70px;
+    border-radius: 4px;
+    font-size: 15px;
     background-color: yellow;
 }
 
 .buttonadd{
+    cursor: pointer;
+    width: 70px;
+    height: 70px;
+    border-radius: 4px;
+    font-size: 15px;
     background-color: darkgreen;
 }

@@ -13,8 +13,7 @@ const personReducer = (state = initialState, action) => {
                     ...state,
                     personData: state.personData.map(item =>{
                         if(item.id === action.id){
-                            console.log(item.colleague);
-                            return {...item, colleague: true}
+                            return {...item, followed: true}
                         } else
                             return item;
                     })
@@ -25,7 +24,7 @@ const personReducer = (state = initialState, action) => {
                     ...state,
                     personData: state.personData.map(item =>{
                         if(item.id === action.id){
-                            return {...item, colleague: false}
+                            return {...item, followed: false}
                         } else {
                             return item;
                         }
@@ -33,6 +32,7 @@ const personReducer = (state = initialState, action) => {
                 })
             case SETPERSONDATA:
                 return {...state, personData: [...state.personData, ...action.personData] }
+
             default:
                 return state;
         }
@@ -44,8 +44,8 @@ export const addColleagueActionCreater = (id) => {
 export const removeColleagueActionCreater = (id) => {
     return {type: REMOVECOLLEAGUE, id: id};
 }
-export const setPersonDataActionCreater = (person) => {
-    return {type: SETPERSONDATA, personData: person};
+export const setPersonDataActionCreater = (persons) => {
+    return {type: SETPERSONDATA, personData: persons};
 }
 
 export default personReducer;

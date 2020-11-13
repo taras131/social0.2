@@ -4,7 +4,7 @@ import {
     removeColleagueActionCreater,
     setPersonDataActionCreater
 } from "../../../redux/personsReducers";
-import Person from "./person/Person";
+import Persons from "./person/Persons";
 
 const mapStateToProps = (state) => {
     return {
@@ -25,5 +25,5 @@ const mapDispatchToProps = (dispatch) =>{
         }
     }
 }
-const PersonsItemsContainer = connect(mapStateToProps, mapDispatchToProps)(Person);
+const PersonsItemsContainer = connect(mapStateToProps, mapDispatchToProps)(Persons);
 export default PersonsItemsContainer;
