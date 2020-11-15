@@ -1,6 +1,7 @@
 import React from "react";
-import PersonsItemsContainer from "./personsitems/PersonsItemsContainer";
+
 import style from "./PeopleList.module.css";
+import PersonsItemsContainer from "./personsitems/PersonsItemsContainer";
 
 const PeopleList = () => {
    return (

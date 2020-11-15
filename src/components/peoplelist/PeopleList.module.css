@@ -2,3 +2,7 @@
   width: 100%;
     padding-right: 5px;
 }
+.preloader{
+  margin: 0 auto;
+  height: 130px;
+}

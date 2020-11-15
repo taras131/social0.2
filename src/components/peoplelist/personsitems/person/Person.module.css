@@ -53,3 +53,18 @@ button{
     font-size: 15px;
     background-color: darkgreen;
 }
+
+.dedicatedcount{
+    margin-top: 15px;
+    font-size: 20px;
+    font-weight: 900;
+    margin-left: 15px;
+}
+
+.count {
+    margin-top: 15px;
+    font-size: 15x;
+    font-weight: 600;
+    margin-left: 15px;
+    cursor: pointer;
+}
