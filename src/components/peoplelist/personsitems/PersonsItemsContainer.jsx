@@ -1,14 +1,10 @@
 import {connect} from "react-redux";
-import {
-    addColleagueActionCreater,
-    removeColleagueActionCreater, setAllUsersCountActionCreater, setCurrentPageActionCreater, setIsLoadingActionCreater,
-    setPersonDataActionCreater
+import {addColleague, removeColleague, setAllUsersCount, setCurrentPage, setIsLoading, setPersonsData,
 } from "../../../redux/personsReducers";
 import React from "react";
 import * as axios from "axios";
 import Persons from "./person/Persons";
-import preloader from "../../../img/preloader.svg";
-import style from "../PeopleList.module.css";
+import Preloader from "../../common/preloader";
 
 
 class PersonsItemsContainer extends React.Component {
@@ -18,7 +14,7 @@ class PersonsItemsContainer extends React.Component {
         &count=${this.props.pageSize}`)
             .then(response => {
                 this.props.setIsLoading(false);
-                this.props.setPerson(response.data.items);
+                this.props.setPersonsData(response.data.items);
                 this.props.setAllUsersCount(response.data.totalCount);
             });
     }
@@ -29,13 +25,14 @@ class PersonsItemsContainer extends React.Component {
         &count=${this.props.pageSize}`)
             .then(response => {
                 this.props.setIsLoading(false);
-                this.props.setPerson(response.data.items)
+                this.props.setPersonsData(response.data.items)
             });
     }
 
     render() {
+        console.log(this.props.personData);
         return <>
-            {this.props.isLoading ? <img src = {preloader} className = {style.preloader} /> : null}
+            {this.props.isLoading ? <Preloader /> : null}
             <Persons allUsersCount ={this.props.allUsersCount}
                         pageSize = {this.props.pageSize}
                         currentPage = {this.props.currentPage}
@@ -47,6 +44,7 @@ class PersonsItemsContainer extends React.Component {
     }
 }
 const mapStateToProps = (state) => {
+    console.log(state.personInformation);
     return {
         personData: state.personInformation.personData,
         pageSize: state.personInformation.pageSize,
@@ -55,27 +53,13 @@ const mapStateToProps = (state) => {
         isLoading: state.personInformation.isLoading
     }
 }
-const mapDispatchToProps = (dispatch) =>{
-    return {
-        addColleagu: (id) => {
-            dispatch(addColleagueActionCreater(id));
-        },
-        removeColleague: (id) => {
-            dispatch(removeColleagueActionCreater(id));
-        },
-        setPerson: (users) => {
-            dispatch(setPersonDataActionCreater(users));
-        },
-        setCurrentPage: (currentPage) => {
-            dispatch(setCurrentPageActionCreater(currentPage));
-        },
-        setAllUsersCount: (allUsersCount) => {
-            dispatch(setAllUsersCountActionCreater(allUsersCount));
-        },
-        setIsLoading: (isLoading) => {
-            dispatch(setIsLoadingActionCreater(isLoading));
-        }
-    }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(PersonsItemsContainer);
+
+export default connect(mapStateToProps,{
+    addColleague,
+    removeColleague,
+    setPersonsData,
+    setCurrentPage,
+    setAllUsersCount,
+    setIsLoading
+})(PersonsItemsContainer);
 

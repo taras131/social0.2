@@ -2,7 +2,7 @@ import React from "react";
 import "./css/App.css";
 import Header from "./components/header/Header.jsx";
 import Navigation from "./components/navigation/Navigation.jsx";
-import Mypage from "./components/mypage/Mypage.jsx";
+import MypageContainer from "./components/mypage/MypageContainer.jsx";
 import Dialogs from "./components/dialogs/Dialogs";
 import News from "./components/news/News";
 import Music from "./components/music/Music";
@@ -16,7 +16,7 @@ const App = (props) =>  {
         <Header />
         <Navigation />
         <div className = "app_wrapper_content">			  
-			<Route path ="/profile" render = { () => <Mypage  />} />
+			<Route path ="/profile/:personId?" render = { () => <MypageContainer />} />
         	<Route path ="/dialogs" render = { () => <Dialogs />} />
             <Route path ="/people" render = { () => <PeopleList />} />
           	<Route path ="/news" component = {News} />

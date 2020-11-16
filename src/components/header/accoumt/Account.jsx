@@ -1,9 +1,11 @@
 import style from "./Account.module.css";
+import {NavLink} from "react-router-dom";
 
-const Account = () =>{
+const Account = (props) =>{
     return (
         <div className = {style.account}>
-            <a href = "#">Войти в аккаунт</a>
+            {props.isAuthentications ?   props.login
+            :<NavLink to ={"/login"}>"Войти в аккаунт"</NavLink> }
         </div>
     );
 }

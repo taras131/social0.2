@@ -1,4 +1,4 @@
-.account a {
-    text-decoration: none;
+.account  {
     color: black;
+    cursor: pointer;
   }

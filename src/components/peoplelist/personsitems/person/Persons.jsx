@@ -1,10 +1,12 @@
 import style from "./Person.module.css";
 import React from "react";
+import {NavLink} from "react-router-dom";
 
 
 const Persons = (props) => {
         let pagesCount = Math.ceil(props.allUsersCount/props.pageSize);
         let pages = [];
+        console.log(props.personData);
         for(let i = 1; i <= pagesCount; i++) {
             pages.push(i);
         }
@@ -21,8 +23,10 @@ const Persons = (props) => {
                             <div>
                                 <div className={style.personinformation}>
                                     <div>
-                                        <img src = {item.photos.small != null
-                                            ? item.photos.small : "https://yt3.ggpht.com/a/AATXAJx8MagglWeof2zL5R6Shk3KU8mmthN1Pl5Of0ih=s900-c-k-c0xffffffff-no-rj-mo" }/>
+                                            <NavLink to ={"/profile/" + item.id}>
+                                                    <img src = {item.photos.small != null ? item.photos.small
+                                                        : "https://yt3.ggpht.com/a/AATXAJx8MagglWeof2zL5R6Shk3KU8mmthN1Pl5Of0ih=s900-c-k-c0xffffffff-no-rj-mo" }/>
+                                            </NavLink>
                                     </div>
                                     <div className={style.data}>
                                         <div></div>

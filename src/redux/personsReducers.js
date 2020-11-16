@@ -14,10 +14,9 @@ let initialState = {
 const personReducer = (state = initialState, action) => {
         switch (action.type){
             case ADDCOLLEAGUE:
-                console.log("add");
                 return ({
                     ...state,
-                    personData: state.personData.map(item =>{
+                    personsData: state.personsData.map(item =>{
                         if(item.id === action.id){
                             return {...item, followed: true}
                         } else
@@ -25,10 +24,9 @@ const personReducer = (state = initialState, action) => {
                     })
                 })
             case REMOVECOLLEAGUE:
-                console.log("remove");
                 return ({
                     ...state,
-                    personData: state.personData.map(item =>{
+                    personsData: state.personsData.map(item =>{
                         if(item.id === action.id){
                             return {...item, followed: false}
                         } else {
@@ -37,7 +35,7 @@ const personReducer = (state = initialState, action) => {
                     })
                 })
             case SETPERSONDATA:
-                return {...state, personData: [...action.personData]}
+                return {...state, personData: [...action.persons]}
             case SETCURRENTPAGE:
                 return {...state, currentPage: action.currentPage}
             case ALLUSERSCOUNT:
@@ -48,22 +46,22 @@ const personReducer = (state = initialState, action) => {
                 return state;
         }
 }
-export const addColleagueActionCreater = (id) => {
+export const addColleague = (id) => {
     return {type: ADDCOLLEAGUE, id: id};
 }
-export const removeColleagueActionCreater = (id) => {
+export const removeColleague = (id) => {
     return {type: REMOVECOLLEAGUE, id: id};
 }
-export const setPersonDataActionCreater = (persons) => {
-    return {type: SETPERSONDATA, personData: persons};
+export const setPersonsData = (persons) => {
+    return {type: SETPERSONDATA, persons};
 }
-export const setCurrentPageActionCreater = (currentPage) => {
+export const setCurrentPage = (currentPage) => {
     return {type: SETCURRENTPAGE, currentPage};
 }
-export const setAllUsersCountActionCreater = (allUsersCount) => {
+export const setAllUsersCount = (allUsersCount) => {
     return {type: ALLUSERSCOUNT, allUsersCount};
 }
-export const setIsLoadingActionCreater = (isLoading) => {
+export const setIsLoading = (isLoading) => {
     return {type: SETISLOADING, isLoading};
 }
 

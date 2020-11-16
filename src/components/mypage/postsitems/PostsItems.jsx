@@ -1,4 +1,4 @@
-import style from "./PostsItems.module.css";
+import style from "../profile/posts/Posts.module.css";
 import NewpostContainer from "./post_item/newpost/NewpostContainer";
 import React from "react";
 import PostPublishedContainer from "./post_item/postpublished/PostPublishedContainer";
