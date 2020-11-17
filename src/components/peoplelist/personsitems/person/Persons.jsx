@@ -1,9 +1,6 @@
 import style from "./Person.module.css";
 import React from "react";
 import {NavLink} from "react-router-dom";
-import * as axios from "axios";
-import {APIPersons} from "../../../../api/api";
-
 
 const Persons = (props) => {
         let pagesCount = Math.ceil(props.allUsersCount/props.pageSize);
@@ -41,28 +38,11 @@ const Persons = (props) => {
                                 {item.followed
                                     ? <button disabled = {props.ColleagueInProgress.some(id => id === item.id)}
                                               className={style.buttonremove} onClick={() => {
-                                            props.setColleagueInProgress(item.id);
-                                            APIPersons.removeColleague(item.id)
-                                                .then(data => {
-
-                                                        if(data.resultCode === 0) {
-                                                                props.removeColleague(item.id)
-                                                                props.setColleagueInProgress(item.id);
-                                                        }
-                                                });
+                                            props.removeColleagueThunkCreator(item.id)
                                     }}>выгнать</button>
                                     : <button disabled = {props.ColleagueInProgress.some(id => id === item.id)}
                                             className = {style.buttonadd} onClick={() => {
-                                            props.setColleagueInProgress(item.id);
-                                            console.log(props.ColleagueInProgress);
-                                            APIPersons.addColleague(item.id)
-                                                .then(data => {
-
-                                                        if(data.resultCode === 0) {
-                                                                props.addColleague(item.id)
-                                                                props.setColleagueInProgress(item.id);
-                                                        }
-                                                });
+                                            props.addColleagueThunkCreator(item.id);
                                     }}>в коллеги</button>}
                             </div>
                         </div>)

@@ -1,35 +1,19 @@
 import {connect} from "react-redux";
 import {
-    addColleague,
-    removeColleague,
-    setAllUsersCount, setColleagueInProgress,
-    setCurrentPage,
-    setIsLoading,
-    setPersonsData,ColleagueInProgress
+    addColleague, removeColleague, setColleagueInProgress,
+    setCurrentPage, getPersons, removeColleagueThunkCreator, addColleagueThunkCreator
 } from "../../../redux/personsReducers";
 import React from "react";
 import Persons from "./person/Persons";
 import Preloader from "../../common/preloader";
-import {APIPersons} from "../../../api/api";
+
 
 class PersonsItemsContainer extends React.Component {
     componentDidMount() {
-        this.props.setIsLoading(true);
-        APIPersons.getPersons(this.props.currentPage, this.props.pageSize)
-            .then(data => {
-                this.props.setIsLoading(false);
-                this.props.setPersonsData(data.items);
-                this.props.setAllUsersCount(data.totalCount);
-            });
+        this.props.getPersons(this.props.currentPage , this.props.pageSize);
     }
     onPageChanged = (currentPage) =>{
-        this.props.setIsLoading(true);
-        this.props.setCurrentPage(currentPage)
-        APIPersons.getPersons(currentPage, this.props.pageSize)
-            .then(data => {
-                this.props.setIsLoading(false);
-                this.props.setPersonsData(data.items)
-            });
+        this.props.getPersons(currentPage, this.props.pageSize);
     }
     render() {
         return <>
@@ -39,10 +23,10 @@ class PersonsItemsContainer extends React.Component {
                         currentPage = {this.props.currentPage}
                         onPageChanged = {this.onPageChanged}
                         personData = {this.props.personData}
-                        addColleague = {this.props.addColleague}
-                        removeColleague = {this.props.removeColleague}
                         ColleagueInProgress ={this.props.ColleagueInProgress}
-                        setColleagueInProgress ={this.props.setColleagueInProgress}/>
+                        setColleagueInProgress = {this.props.setColleagueInProgress}
+                        removeColleagueThunkCreator = {this.props.removeColleagueThunkCreator}
+                        addColleagueThunkCreator = {this.props.addColleagueThunkCreator} />
             </>
     }
 }
@@ -56,14 +40,6 @@ const mapStateToProps = (state) => {
         ColleagueInProgress: state.personInformation.ColleagueInProgress
     }
 }
-
-export default connect(mapStateToProps,{
-    addColleague,
-    removeColleague,
-    setPersonsData,
-    setCurrentPage,
-    setAllUsersCount,
-    setIsLoading,
-    setColleagueInProgress
-})(PersonsItemsContainer);
+export default connect(mapStateToProps,{setCurrentPage, setColleagueInProgress, getPersons,
+    removeColleagueThunkCreator, addColleagueThunkCreator})(PersonsItemsContainer);
 

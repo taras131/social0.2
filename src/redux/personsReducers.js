@@ -1,3 +1,5 @@
+import {APIPersons} from "../api/api";
+
 const ADDCOLLEAGUE = "ADDCOLLEAGUE",
       REMOVECOLLEAGUE = "REMOVECOLLEAGUE",
       SETPERSONSDATA = "SETPERSONSDATA",
@@ -77,6 +79,39 @@ export const setIsLoading = (isLoading) => {
 }
 export const setColleagueInProgress = (id) => {
     return {type: COLLEAGUEINPROGRESS, id};
+}
+export const getPersons = (currentPage, pageSize) => {
+    return dispatch => {
+        dispatch(setIsLoading(true));
+        APIPersons.getPersons(currentPage, pageSize)
+            .then(data => {
+                dispatch(setIsLoading(false));
+                dispatch(setPersonsData(data.items));
+                dispatch(setAllUsersCount(data.totalCount));
+            })
+    }
+}
+export const removeColleagueThunkCreator = (id) => {
+    return dispatch => {
+        dispatch(setColleagueInProgress(id));
+        APIPersons.removeColleague(id).then(data => {
+            if(data.resultCode === 0) {
+                dispatch(removeColleague(id));
+                dispatch(setColleagueInProgress(id));
+            }
+        });
+    }
+}
+export const addColleagueThunkCreator = (id) => {
+    return dispatch => {
+        dispatch(setColleagueInProgress(id));
+        APIPersons.addColleague(id).then(data => {
+            if(data.resultCode === 0) {
+                dispatch(addColleague(id))
+                dispatch(setColleagueInProgress(id));
+            }
+        });
+    }
 }
 
 export default personReducer;
