@@ -1,36 +1,37 @@
 import {connect} from "react-redux";
-import {addColleague, removeColleague, setAllUsersCount, setCurrentPage, setIsLoading, setPersonsData,
+import {
+    addColleague,
+    removeColleague,
+    setAllUsersCount, setColleagueInProgress,
+    setCurrentPage,
+    setIsLoading,
+    setPersonsData,ColleagueInProgress
 } from "../../../redux/personsReducers";
 import React from "react";
-import * as axios from "axios";
 import Persons from "./person/Persons";
 import Preloader from "../../common/preloader";
-
+import {APIPersons} from "../../../api/api";
 
 class PersonsItemsContainer extends React.Component {
     componentDidMount() {
         this.props.setIsLoading(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}
-        &count=${this.props.pageSize}`)
-            .then(response => {
+        APIPersons.getPersons(this.props.currentPage, this.props.pageSize)
+            .then(data => {
                 this.props.setIsLoading(false);
-                this.props.setPersonsData(response.data.items);
-                this.props.setAllUsersCount(response.data.totalCount);
+                this.props.setPersonsData(data.items);
+                this.props.setAllUsersCount(data.totalCount);
             });
     }
     onPageChanged = (currentPage) =>{
         this.props.setIsLoading(true);
         this.props.setCurrentPage(currentPage)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}
-        &count=${this.props.pageSize}`)
-            .then(response => {
+        APIPersons.getPersons(currentPage, this.props.pageSize)
+            .then(data => {
                 this.props.setIsLoading(false);
-                this.props.setPersonsData(response.data.items)
+                this.props.setPersonsData(data.items)
             });
     }
-
     render() {
-        console.log(this.props.personData);
         return <>
             {this.props.isLoading ? <Preloader /> : null}
             <Persons allUsersCount ={this.props.allUsersCount}
@@ -38,19 +39,21 @@ class PersonsItemsContainer extends React.Component {
                         currentPage = {this.props.currentPage}
                         onPageChanged = {this.onPageChanged}
                         personData = {this.props.personData}
-                        addColleagu = {this.props.addColleagu}
-                        removeColleague = {this.props.removeColleague} />
+                        addColleague = {this.props.addColleague}
+                        removeColleague = {this.props.removeColleague}
+                        ColleagueInProgress ={this.props.ColleagueInProgress}
+                        setColleagueInProgress ={this.props.setColleagueInProgress}/>
             </>
     }
 }
 const mapStateToProps = (state) => {
-    console.log(state.personInformation);
     return {
         personData: state.personInformation.personData,
         pageSize: state.personInformation.pageSize,
         allUsersCount: state.personInformation.allUsersCount,
         currentPage: state.personInformation.currentPage,
-        isLoading: state.personInformation.isLoading
+        isLoading: state.personInformation.isLoading,
+        ColleagueInProgress: state.personInformation.ColleagueInProgress
     }
 }
 
@@ -60,6 +63,7 @@ export default connect(mapStateToProps,{
     setPersonsData,
     setCurrentPage,
     setAllUsersCount,
-    setIsLoading
+    setIsLoading,
+    setColleagueInProgress
 })(PersonsItemsContainer);
 

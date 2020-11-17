@@ -1,22 +1,25 @@
 const ADDCOLLEAGUE = "ADDCOLLEAGUE",
       REMOVECOLLEAGUE = "REMOVECOLLEAGUE",
-      SETPERSONDATA = "SETPERSONDATA",
+      SETPERSONSDATA = "SETPERSONSDATA",
       SETCURRENTPAGE = "SETCURRENTPAGE",
       ALLUSERSCOUNT = "ALLUSERSCOUNT",
-      SETISLOADING = "SETISLOADING";
+      SETISLOADING = "SETISLOADING",
+      COLLEAGUEINPROGRESS = "COLLEAGUEINPROGRESS";
 let initialState = {
     personData: [],
     pageSize: 12,
     allUsersCount: 0,
     currentPage: 1,
+    ColleagueInProgress: [],
     isLoading: false
+
 };
 const personReducer = (state = initialState, action) => {
         switch (action.type){
             case ADDCOLLEAGUE:
                 return ({
                     ...state,
-                    personsData: state.personsData.map(item =>{
+                    personData: state.personData.map(item =>{
                         if(item.id === action.id){
                             return {...item, followed: true}
                         } else
@@ -26,7 +29,7 @@ const personReducer = (state = initialState, action) => {
             case REMOVECOLLEAGUE:
                 return ({
                     ...state,
-                    personsData: state.personsData.map(item =>{
+                    personData: state.personData.map(item =>{
                         if(item.id === action.id){
                             return {...item, followed: false}
                         } else {
@@ -34,7 +37,7 @@ const personReducer = (state = initialState, action) => {
                         }
                     })
                 })
-            case SETPERSONDATA:
+            case SETPERSONSDATA:
                 return {...state, personData: [...action.persons]}
             case SETCURRENTPAGE:
                 return {...state, currentPage: action.currentPage}
@@ -42,6 +45,14 @@ const personReducer = (state = initialState, action) => {
                 return {...state, allUsersCount: (action.allUsersCount/100)}
             case SETISLOADING:
                 return {...state, isLoading: action.isLoading}
+            case COLLEAGUEINPROGRESS:
+                console.log(state.ColleagueInProgress ,action.id, (state.ColleagueInProgress.some(id => id == action.id)));
+                return ({
+                    ...state,
+                    ColleagueInProgress: (state.ColleagueInProgress.some(id => id == action.id))
+                        ? state.ColleagueInProgress.filter(id => id != action.id)
+                        : [...state.ColleagueInProgress, action.id]
+                })
             default:
                 return state;
         }
@@ -53,7 +64,7 @@ export const removeColleague = (id) => {
     return {type: REMOVECOLLEAGUE, id: id};
 }
 export const setPersonsData = (persons) => {
-    return {type: SETPERSONDATA, persons};
+    return {type: SETPERSONSDATA, persons};
 }
 export const setCurrentPage = (currentPage) => {
     return {type: SETCURRENTPAGE, currentPage};
@@ -64,6 +75,8 @@ export const setAllUsersCount = (allUsersCount) => {
 export const setIsLoading = (isLoading) => {
     return {type: SETISLOADING, isLoading};
 }
-
+export const setColleagueInProgress = (id) => {
+    return {type: COLLEAGUEINPROGRESS, id};
+}
 
 export default personReducer;

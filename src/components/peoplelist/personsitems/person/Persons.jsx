@@ -1,12 +1,13 @@
 import style from "./Person.module.css";
 import React from "react";
 import {NavLink} from "react-router-dom";
+import * as axios from "axios";
+import {APIPersons} from "../../../../api/api";
 
 
 const Persons = (props) => {
         let pagesCount = Math.ceil(props.allUsersCount/props.pageSize);
         let pages = [];
-        console.log(props.personData);
         for(let i = 1; i <= pagesCount; i++) {
             pages.push(i);
         }
@@ -38,14 +39,32 @@ const Persons = (props) => {
                             </div>
                             <div className={style.button}>
                                 {item.followed
-                                    ? <button className={style.buttonremove} onClick={() => {
-                                        props.removeColleague(item.id)
+                                    ? <button disabled = {props.ColleagueInProgress.some(id => id === item.id)}
+                                              className={style.buttonremove} onClick={() => {
+                                            props.setColleagueInProgress(item.id);
+                                            APIPersons.removeColleague(item.id)
+                                                .then(data => {
+
+                                                        if(data.resultCode === 0) {
+                                                                props.removeColleague(item.id)
+                                                                props.setColleagueInProgress(item.id);
+                                                        }
+                                                });
                                     }}>выгнать</button>
-                                    : <button className={style.buttonadd} onClick={() => {
-                                        props.addColleagu(item.id)
+                                    : <button disabled = {props.ColleagueInProgress.some(id => id === item.id)}
+                                            className = {style.buttonadd} onClick={() => {
+                                            props.setColleagueInProgress(item.id);
+                                            console.log(props.ColleagueInProgress);
+                                            APIPersons.addColleague(item.id)
+                                                .then(data => {
+
+                                                        if(data.resultCode === 0) {
+                                                                props.addColleague(item.id)
+                                                                props.setColleagueInProgress(item.id);
+                                                        }
+                                                });
                                     }}>в коллеги</button>}
                             </div>
-
                         </div>)
                     }
                 </div>
