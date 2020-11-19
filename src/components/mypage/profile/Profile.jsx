@@ -1,8 +1,7 @@
-import style from "./profilediscription/ProfileDiscription.module.css"
 import ProfileDiscription from "./profilediscription/ProfileDiscription";
 import Posts from "./posts/Posts";
 import React from "react";
-
+import {Redirect} from "react-router-dom";
 
 const Profile = (props) => {
     return (

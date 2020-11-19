@@ -1,3 +1,5 @@
+import {APIHeader} from "../api/api";
+
 const SETPERSON = "SETPERSON";
 
 let initialState = {
@@ -10,15 +12,22 @@ let initialState = {
 const authenticationsReduser = (state = initialState, action) => {
     switch (action.type){
         case SETPERSON:
-           // console.log(action.data);
             return {...state, ...action.data, isAuthentications:true }
         default:
             return state;
     }
 }
-
 export const setPerson = (personId, email, login) => {
     return {type: SETPERSON, data: {personId, email, login}}
+}
+export const getAuthMe = () => {
+    return dispath => {
+        APIHeader.getAuthMe().then(data => {
+            if (data.resultCode ===0){
+                dispath(setPerson(data.data.id, data.data.email, data.data.login))
+            }
+        });
+    }
 }
 
 export default authenticationsReduser;

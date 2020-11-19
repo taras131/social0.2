@@ -1,5 +1,4 @@
 import React from "react";
-
 import style from "./PeopleList.module.css";
 import PersonsItemsContainer from "./personsitems/PersonsItemsContainer";
 

@@ -1,4 +1,3 @@
-import style from "./Message_item.module.css";
 import React from "react";
 import Message from "./message/Message";
 

@@ -1,20 +1,19 @@
 import React from "react";
 import style from "./Mypage.module.css";
-import * as axios from "axios";
 import Profile from "./profile/Profile";
 import {connect} from "react-redux";
-import {addPost, input, setProfile} from "../../redux/profileReducer";
+import {addPost, getProfile, input, setProfile} from "../../redux/profileReducer";
 import withRouter from "react-router-dom/es/withRouter";
-
+import {Redirect} from "react-router-dom";
+import AuthenticationRedirectHOC from "../../hoc/AuthenticationRedirectHOC";
+import Message_item from "../dialogs/messages_items/message_item/Message_item";
+import {compose} from "redux";
 
 class MypageContainer extends React.Component {
     componentDidMount() {
+        console.log(this.props);
         let personId = this.props.match.params.personId;
-        if(!personId) personId = 12594
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${personId}`)
-            .then(response => {
-                this.props.setProfile(response.data);
-            });
+        this.props.getProfile(personId);
     }
     render() {
         return (
@@ -31,5 +30,12 @@ const mapStateToProps = (state) => {
         profile: state.profileInformation.profile
     }
 }
-let withUrlDataContainerComponent = withRouter(MypageContainer);
-export default connect(mapStateToProps,{addPost,input,setProfile})(withUrlDataContainerComponent);
+
+export default compose(
+    connect(mapStateToProps, {addPost, input, setProfile, getProfile}),
+    withRouter,
+    AuthenticationRedirectHOC
+)(MypageContainer);
+
+
+

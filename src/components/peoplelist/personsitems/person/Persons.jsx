@@ -55,7 +55,6 @@ const Persons = (props) => {
                     })}
                 </div>
             </div>
-
 }
 
 export default Persons;

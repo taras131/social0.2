@@ -1,3 +1,5 @@
+import {APIProfile} from "../api/api";
+
 const ADDPOST = "ADDPOST",
       INPUTPOST = "INPUTPOST",
       SETPROFILE = "SETPROFILE";
@@ -42,6 +44,13 @@ export const input = (text) => {
 }
 export const setProfile = (profile) => {
     return {type: SETPROFILE, profile};
+}
+export const getProfile = (id) => {
+    console.log(id);
+    return dispatch => {
+        if(!id) id = 12594
+        APIProfile.getProfile(id).then(data => {dispatch(setProfile(data))});
+    }
 }
 
 export default profileReducer;

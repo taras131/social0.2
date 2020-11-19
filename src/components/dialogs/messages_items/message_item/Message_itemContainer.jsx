@@ -1,15 +1,16 @@
 import React from "react";
 import {connect} from "react-redux";
 import Message_item from "./Message_item";
+import AuthenticationRedirectHOC from "../../../../hoc/AuthenticationRedirectHOC";
+import {compose} from "redux";
 
 const mapStateToProps = (state) =>{
     return {
         messagesData: state.messagesInformation.messagesData
     }
 }
-const mapDispatchToProps = (dispatch) =>{
-    return {  }
-}
-const Message_itemContainer = connect(mapStateToProps, mapDispatchToProps)(Message_item);
 
-export default Message_itemContainer;
+export default compose(
+    connect(mapStateToProps),
+    AuthenticationRedirectHOC
+)(Message_item)

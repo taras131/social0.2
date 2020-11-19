@@ -9,6 +9,7 @@ import Music from "./components/music/Music";
 import Setting from "./components/setting/Setting"
 import { BrowserRouter, Route } from "react-router-dom";
 import PeopleList from "./components/peoplelist/PeopleList";
+import Login from "./components/login/Login";
 
 const App = (props) =>  {
   return (
@@ -22,6 +23,7 @@ const App = (props) =>  {
           	<Route path ="/news" component = {News} />
           	<Route path ="/music" component = {Music} />
           	<Route path ="/setting" component = {Setting} />
+            <Route path ="/login" component = {Login} />
         </div>
       </div>
   );

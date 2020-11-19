@@ -6,6 +6,8 @@ import {
 import React from "react";
 import Persons from "./person/Persons";
 import Preloader from "../../common/preloader";
+import AuthenticationRedirectHOC from "../../../hoc/AuthenticationRedirectHOC";
+import {compose} from "redux";
 
 
 class PersonsItemsContainer extends React.Component {
@@ -40,6 +42,10 @@ const mapStateToProps = (state) => {
         ColleagueInProgress: state.personInformation.ColleagueInProgress
     }
 }
-export default connect(mapStateToProps,{setCurrentPage, setColleagueInProgress, getPersons,
-    removeColleagueThunkCreator, addColleagueThunkCreator})(PersonsItemsContainer);
+
+export default compose(
+    connect(mapStateToProps,{setCurrentPage, setColleagueInProgress, getPersons,
+        removeColleagueThunkCreator, addColleagueThunkCreator}),
+    AuthenticationRedirectHOC
+)(PersonsItemsContainer)
 

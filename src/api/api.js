@@ -7,7 +7,6 @@ const instansAxios = axios.create({
     },
     baseURL: "https://social-network.samuraijs.com/api/1.0/"
 })
-
 export const APIPersons = {
     getPersons(currentPage, pageSize) {
         return instansAxios.get(`users?page=${currentPage}&count=${pageSize}`)
@@ -23,6 +22,22 @@ export const APIPersons = {
     },
     addColleague(id) {
         return instansAxios.post(`follow/${id}`)
+            .then(response => {
+                return response.data
+            })
+    }
+}
+export const APIProfile = {
+    getProfile(id) {
+        return instansAxios.get(`profile/${id}`)
+            .then(response => {
+                return response.data
+            })
+    }
+}
+export const APIHeader = {
+    getAuthMe() {
+        return instansAxios.get(`auth/me`)
             .then(response => {
                 return response.data
             })
