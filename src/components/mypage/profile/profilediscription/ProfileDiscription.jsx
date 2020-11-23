@@ -1,11 +1,14 @@
 import style from "./ProfileDiscription.module.css";
 import Preloader from "../../../common/preloader";
+import MyStatus from "../MyStatus";
 
 const ProfileDiscription = (props) => {
     if (!props.profile) {
         return <Preloader />
     }
     return (
+    <div>
+        <MyStatus status = {"Hello"}/>
         <div className = {style.ava}>
             <img src ={props.profile.photos.large ? props.profile.photos.large
                 :"https://laowai.ru/wp-content/uploads/2015/11/pic2-nipic18.jpg"}/>
@@ -19,6 +22,7 @@ const ProfileDiscription = (props) => {
                 <div className ={style.item}>ВКонтакте: {props.profile.contacts.vk}</div>
             </div>
         </div>
+    </div>
     )
 }
 

@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import {
-    addColleague, removeColleague, setColleagueInProgress,
+    setColleagueInProgress,
     setCurrentPage, getPersons, removeColleagueThunkCreator, addColleagueThunkCreator
 } from "../../../redux/personsReducers";
 import React from "react";
