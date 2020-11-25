@@ -5,9 +5,10 @@ import NewPost from "./newpost/NewPost";
 const Posts = (props) => {
      let postsElements = props.postData.map(item => {
         return (<ExistingPosts name ="Taras" key = {item.id} text = {item.text} count = {item.likescount} />)})
+
     return (
         <div>
-            <NewPost addPost ={props.addPost} input = {props.input} inputValue ={props.inputValue}/>
+            <NewPost addPost ={props.addPost} />
             {postsElements}
         </div>
     )

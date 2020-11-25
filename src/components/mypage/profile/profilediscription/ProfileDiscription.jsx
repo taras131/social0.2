@@ -8,7 +8,7 @@ const ProfileDiscription = (props) => {
     }
     return (
     <div>
-        <MyStatus status = {"Hello"}/>
+        <MyStatus status = {props.status} updateMyStatus = {props.updateMyStatus}/>
         <div className = {style.ava}>
             <img src ={props.profile.photos.large ? props.profile.photos.large
                 :"https://laowai.ru/wp-content/uploads/2015/11/pic2-nipic18.jpg"}/>

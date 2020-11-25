@@ -2,21 +2,29 @@ import React from "react";
 import style from "./Mypage.module.css";
 import Profile from "./profile/Profile";
 import {connect} from "react-redux";
-import {addPost, getProfile, input, setProfile} from "../../redux/profileReducer";
-import withRouter from "react-router-dom/es/withRouter";
+import {addPost, getMyStatus, getProfile, input, setProfile, updateMyStatus} from "../../redux/profileReducer";
 import AuthenticationRedirectHOC from "../../hoc/AuthenticationRedirectHOC";
 import {compose} from "redux";
+import {withRouter} from "react-router-dom";
+
 
 class MypageContainer extends React.Component {
     componentDidMount() {
-        console.log(this.props);
-        let personId = this.props.match.params.personId;
-        this.props.getProfile(personId);
+        let id;
+        if(this.props.match.params.personId){
+            id = this.props.match.params.personId;
+        } else {
+            id = 12595
+        }
+        this.props.getProfile(id);
+        this.props.getMyStatus(id);
+        console.log(id);
     }
     render() {
         return (
             <div className = {style.mypage}>
-                <Profile {...this.props} profile = {this.props.profile}/>
+                <Profile {...this.props} profile = {this.props.profile} status = {this.props.status}
+                         updateMyStatus = {this.props.updateMyStatus} />
             </div>
         );
     }
@@ -25,12 +33,13 @@ const mapStateToProps = (state) => {
     return {
         postData: state.profileInformation.postData,
         inputValue: state.profileInformation.inputValue,
-        profile: state.profileInformation.profile
+        profile: state.profileInformation.profile,
+        status: state.profileInformation.status
     }
 }
 
 export default compose(
-    connect(mapStateToProps, {addPost, input, setProfile, getProfile}),
+    connect(mapStateToProps, {addPost, input, setProfile, getProfile, getMyStatus, updateMyStatus}),
     withRouter,
     AuthenticationRedirectHOC
 )(MypageContainer);

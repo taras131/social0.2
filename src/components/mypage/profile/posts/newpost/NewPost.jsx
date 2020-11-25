@@ -1,16 +1,14 @@
 import style from "./Newpost.module.css";
+import NewPostForm from "./newposrform/NewPosrForm";
 
 const NewPost = (props) => {
-    const addPost = () => {
-        props.addPost();
-    };
-    const input = (e) => {
-        props.input(e.target.value);
-    };
+    const onSubmit = (formData) => {
+        console.log(formData)
+        props.addPost(formData.inputPost);
+    }
     return (
         <div className={style.newpost}>
-            <input onChange = {input} value = {props.inputValue} />
-            <button onClick = {addPost}>Опубликовать</button>
+            <NewPostForm onSubmit = {onSubmit} />
         </div>
     )
 }

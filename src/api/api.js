@@ -33,6 +33,12 @@ export const APIProfile = {
             .then(response => {
                 return response.data
             })
+    },
+    getMyStatusAPI(id){
+        return instansAxios.get(`profile/status/${id}`)
+    },
+    updateMyStatus(status) {
+        return instansAxios.put(`profile/status`, {status});
     }
 }
 export const APIHeader = {
@@ -41,5 +47,10 @@ export const APIHeader = {
             .then(response => {
                 return response.data
             })
+    },
+    login(formData) {
+        console.log(formData);
+        return instansAxios.post(`/auth/login`,{ email: formData.login , password: formData.password ,
+            rememberMe: true , captcha: true})
     }
 }

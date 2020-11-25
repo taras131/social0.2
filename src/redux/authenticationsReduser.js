@@ -21,12 +21,22 @@ export const setPerson = (personId, email, login) => {
     return {type: SETPERSON, data: {personId, email, login}}
 }
 export const getAuthMe = () => {
-    return dispath => {
+    return dispatch => {
         APIHeader.getAuthMe().then(data => {
             if (data.resultCode ===0){
-                dispath(setPerson(data.data.id, data.data.email, data.data.login))
+                dispatch(setPerson(data.data.id, data.data.email, data.data.login))
             }
         });
+    }
+}
+export const login = (formData) => {
+    return dispatch => {
+        APIHeader.login(formData).then(data => {
+            console.log(data.data.resultCode);
+            if(data.data.resultCode === 0) {
+                dispatch(setPerson(data.data.id, formData.login, data.data.id))
+            }
+        })
     }
 }
 
