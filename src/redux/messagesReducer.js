@@ -14,25 +14,16 @@ let initialState = {
         {id: 4, text: "я скучаю", likescount: 7},
         {id: 5, text: "ты негодяй!", likescount: 4}
     ],
-    inputValue : ``	
 };
 
 const messagesReducer = (state = initialState, action) => {
-    const  ADDMESSAGE = "ADDMESSAGE",
-           MESSAGEINPUT = "MESSAGEINPUT";
+    const  ADDMESSAGE = "ADDMESSAGE";
     let temporaryState;
     switch(action.type) {
         case ADDMESSAGE:
             temporaryState = {
                 ...state,
-                inputValue: ``,
-                messagesData: [...state.messagesData, {id: 5, text: state.inputValue, likescount: 0}]
-            };
-            return temporaryState;
-        case MESSAGEINPUT:
-            temporaryState = {
-            ...state,
-            inputValue: action.messageimput
+                messagesData: [...state.messagesData, {id: 5, text: action.text, likescount: 0}]
             };
             return temporaryState;
         default:
@@ -40,11 +31,8 @@ const messagesReducer = (state = initialState, action) => {
     }
 }
 
-export const sendNewMessageCreatorAction = () => {
-    return {type: "ADDMESSAGE"};
-}
-export const inputCreatorAction = (text) => {
-    return {type: "MESSAGEINPUT", messageimput: text };
+export const sendNewMessage = (text) => {
+    return {type: "ADDMESSAGE",text};
 }
 
 export default messagesReducer;

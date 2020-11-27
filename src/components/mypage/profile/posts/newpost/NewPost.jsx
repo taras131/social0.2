@@ -1,9 +1,8 @@
 import style from "./Newpost.module.css";
-import NewPostForm from "./newposrform/NewPosrForm";
+import NewPostForm from "./newpostform/NewPostForm";
 
 const NewPost = (props) => {
     const onSubmit = (formData) => {
-        console.log(formData)
         props.addPost(formData.inputPost);
     }
     return (

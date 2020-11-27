@@ -5,7 +5,7 @@ import {
 } from "../../../redux/personsReducers";
 import React from "react";
 import Persons from "./person/Persons";
-import Preloader from "../../common/preloader";
+import Preloader from "../../common/preloader/preloader";
 import AuthenticationRedirectHOC from "../../../hoc/AuthenticationRedirectHOC";
 import {compose} from "redux";
 

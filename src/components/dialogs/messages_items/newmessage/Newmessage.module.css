@@ -4,11 +4,11 @@
     margin-top: 40px;
   }
   
-  .newmessage input {
+  .newmessage textarea {
     width: 700px;
     height: 100px;
     margin: 0 auto;
-    border: none;
+
     border-radius: 4px;
   }
   

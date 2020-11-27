@@ -1,7 +1,6 @@
 import {APIProfile} from "../api/api";
 
 const ADDPOST = "ADDPOST",
-      INPUTPOST = "INPUTPOST",
       SETPROFILE = "SETPROFILE",
       SETSTATUS = "SETSTATUS";
 let initialState = {
@@ -32,7 +31,6 @@ const profileReducer = (state = initialState, action) => {
     }
 }
 export const addPost = (text) => {return {type: ADDPOST,text};}
-export const input = (text) => {return {type: INPUTPOST, postimput: text};}
 export const setProfile = (profile) => {return {type: SETPROFILE, profile};}
 export const setStatus = (status) => {return {type: SETSTATUS, status}}
 export const getProfile = (id) => {

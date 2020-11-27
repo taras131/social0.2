@@ -1,5 +1,5 @@
 import style from "./ProfileDiscription.module.css";
-import Preloader from "../../../common/preloader";
+import Preloader from "../../../common/preloader/preloader";
 import MyStatus from "../MyStatus";
 
 const ProfileDiscription = (props) => {

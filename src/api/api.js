@@ -52,5 +52,8 @@ export const APIHeader = {
         console.log(formData);
         return instansAxios.post(`/auth/login`,{ email: formData.login , password: formData.password ,
             rememberMe: true , captcha: true})
+    },
+    loginOut() {
+        return instansAxios.delete(`/auth/login`)
     }
 }

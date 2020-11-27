@@ -16,7 +16,7 @@ class AccountContainer extends React.Component {
 const mapStateToProps = (state) => {
     return {
         isAuthentications: state.authenticationsInformation.isAuthentications,
-        login: state.authenticationsInformation.login
+        login: state.authenticationsInformation.authenticationsData.login
     }
 }
 

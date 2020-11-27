@@ -1,23 +1,19 @@
 import React from "react";
-import {sendNewMessageCreatorAction, inputCreatorAction} from "../../../../redux/messagesReducer";
-import Newmessage from "./Newmessage";
+import {sendNewMessage} from "../../../../redux/messagesReducer";
 import {connect} from "react-redux";
+import NewmessageForm from "./Newmessage";
 
+const Newmessage = (props) => {
+    const onSubmit = (formData) => {
+        props.sendNewMessage(formData.newMessage);
+    }
+    return(
+        <NewmessageForm onSubmit ={onSubmit} />
+    )
+}
 const mapStateToProps = (state) =>{
-    return {
-        inputValue: state.messagesInformation.inputValue
-    }
+    return { }
 }
-const mapDispatchToProps = (dispatch) =>{
-    return {
-        sendNewMessage: () => {
-            dispatch(sendNewMessageCreatorAction());
-        },
-        input: (text) => {
-            dispatch(inputCreatorAction(text));
-        }
-    }
-}
-const NewmessageContainer = connect(mapStateToProps,mapDispatchToProps)(Newmessage);
+const NewmessageContainer = connect(mapStateToProps, {sendNewMessage})(Newmessage);
 
 export default NewmessageContainer;

@@ -32,14 +32,13 @@ class MypageContainer extends React.Component {
 const mapStateToProps = (state) => {
     return {
         postData: state.profileInformation.postData,
-        inputValue: state.profileInformation.inputValue,
         profile: state.profileInformation.profile,
         status: state.profileInformation.status
     }
 }
 
 export default compose(
-    connect(mapStateToProps, {addPost, input, setProfile, getProfile, getMyStatus, updateMyStatus}),
+    connect(mapStateToProps, {addPost, setProfile, getProfile, getMyStatus, updateMyStatus}),
     withRouter,
     AuthenticationRedirectHOC
 )(MypageContainer);
