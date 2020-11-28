@@ -23,7 +23,6 @@ class MyStatus extends React.Component {
         this.props.updateMyStatus(this.state.status);
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
-       console.log("componentDidUpdate");
        if(prevProps.status != this.props.status){
            this.setState({status: this.props.status})
        }

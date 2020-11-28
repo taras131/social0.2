@@ -8,7 +8,7 @@ const ADDCOLLEAGUE = "ADDCOLLEAGUE",
       SETISLOADING = "SETISLOADING",
       COLLEAGUEINPROGRESS = "COLLEAGUEINPROGRESS";
 let initialState = {
-    personData: [],
+    personsData: [],
     pageSize: 12,
     allUsersCount: 0,
     currentPage: 1,
@@ -21,7 +21,7 @@ const personReducer = (state = initialState, action) => {
             case ADDCOLLEAGUE:
                 return ({
                     ...state,
-                    personData: state.personData.map(item =>{
+                    personsData: state.personsData.map(item =>{
                         if(item.id === action.id){
                             return {...item, followed: true}
                         } else
@@ -31,7 +31,7 @@ const personReducer = (state = initialState, action) => {
             case REMOVECOLLEAGUE:
                 return ({
                     ...state,
-                    personData: state.personData.map(item =>{
+                    personsData: state.personsData.map(item =>{
                         if(item.id === action.id){
                             return {...item, followed: false}
                         } else {
@@ -40,7 +40,7 @@ const personReducer = (state = initialState, action) => {
                     })
                 })
             case SETPERSONSDATA:
-                return {...state, personData: [...action.persons]}
+                return {...state, personsData: [...action.persons]}
             case SETCURRENTPAGE:
                 return {...state, currentPage: action.currentPage}
             case ALLUSERSCOUNT:
@@ -48,7 +48,6 @@ const personReducer = (state = initialState, action) => {
             case SETISLOADING:
                 return {...state, isLoading: action.isLoading}
             case COLLEAGUEINPROGRESS:
-                console.log(state.ColleagueInProgress ,action.id, (state.ColleagueInProgress.some(id => id == action.id)));
                 return ({
                     ...state,
                     ColleagueInProgress: (state.ColleagueInProgress.some(id => id == action.id))
@@ -83,6 +82,7 @@ export const setColleagueInProgress = (id) => {
 export const getPersons = (currentPage, pageSize) => {
     return dispatch => {
         dispatch(setIsLoading(true));
+        dispatch(setCurrentPage(currentPage));
         APIPersons.getPersons(currentPage, pageSize)
             .then(data => {
                 dispatch(setIsLoading(false));

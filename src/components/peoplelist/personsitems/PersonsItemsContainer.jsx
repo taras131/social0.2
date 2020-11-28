@@ -6,8 +6,12 @@ import {
 import React from "react";
 import Persons from "./person/Persons";
 import Preloader from "../../common/preloader/preloader";
-import AuthenticationRedirectHOC from "../../../hoc/AuthenticationRedirectHOC";
 import {compose} from "redux";
+import {
+    getAllUsersCount, getColleagueInProgress, getCurrentPage,
+    getPageSize, getIsLoading, getAllPersons
+} from "../../../redux/personsSelectors";
+
 
 
 class PersonsItemsContainer extends React.Component {
@@ -24,7 +28,7 @@ class PersonsItemsContainer extends React.Component {
                         pageSize = {this.props.pageSize}
                         currentPage = {this.props.currentPage}
                         onPageChanged = {this.onPageChanged}
-                        personData = {this.props.personData}
+                        personsData = {this.props.personsData}
                         ColleagueInProgress ={this.props.ColleagueInProgress}
                         setColleagueInProgress = {this.props.setColleagueInProgress}
                         removeColleagueThunkCreator = {this.props.removeColleagueThunkCreator}
@@ -34,18 +38,18 @@ class PersonsItemsContainer extends React.Component {
 }
 const mapStateToProps = (state) => {
     return {
-        personData: state.personInformation.personData,
-        pageSize: state.personInformation.pageSize,
-        allUsersCount: state.personInformation.allUsersCount,
-        currentPage: state.personInformation.currentPage,
-        isLoading: state.personInformation.isLoading,
-        ColleagueInProgress: state.personInformation.ColleagueInProgress
+        personsData: getAllPersons(state),
+        pageSize: getPageSize(state),
+        allUsersCount: getAllUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isLoading: getIsLoading(state),
+        ColleagueInProgress: getColleagueInProgress(state)
     }
 }
 
 export default compose(
     connect(mapStateToProps,{setCurrentPage, setColleagueInProgress, getPersons,
         removeColleagueThunkCreator, addColleagueThunkCreator}),
-    AuthenticationRedirectHOC
+    //AuthenticationRedirectHOC
 )(PersonsItemsContainer)
 

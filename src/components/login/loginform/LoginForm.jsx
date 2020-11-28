@@ -1,13 +1,12 @@
 import {Field, reduxForm} from "redux-form";
 import React from "react";
-import {NavLink} from "react-router-dom";
 import {TEXTAREAINPUT} from "../../common/formcontrol/FormControl";
 import {maxLength, requiredField} from "../../../utils/validations/validations";
+import style from "./Login.module.css";
 
 const maxLength30 = maxLength(30);
 const Input = TEXTAREAINPUT("input");
 const LoginForm = (props) => {
-    console.log(props);
     const loginOut = () => {
         props.loginOut();
     }
@@ -26,6 +25,9 @@ const LoginForm = (props) => {
                     </div>
                     <div>
                         <Field type={"checkbox"} component = {"input"} name={"rememberMe"}/> Запомни меня
+                    </div>
+                    <div className={style.error}>
+                        {props.error}
                     </div>
                     <div>
                         <button>Войти</button>

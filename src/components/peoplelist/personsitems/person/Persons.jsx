@@ -17,7 +17,7 @@ const Persons = (props) => {
                 </div>
                 <div className={style.personitems}>
                     {
-                        props.personData.map(item => <div className={style.person}>
+                        props.personsData.map(item => <div className={style.person}>
                             <div>
                                 <div className={style.personinformation}>
                                     <div>
@@ -29,8 +29,8 @@ const Persons = (props) => {
                                     <div className={style.data}>
                                         <div></div>
                                         <div>Фамилия: {item.name}</div>
-                                        <div>Страна: Россия </div>
-                                        <div>Город: Балашиха</div>
+                                        <div>Страна:   </div>
+                                        <div>Город:  </div>
                                     </div>
                                 </div>
                             </div>

@@ -10,15 +10,16 @@ import {withRouter} from "react-router-dom";
 
 class MypageContainer extends React.Component {
     componentDidMount() {
-        let id;
-        if(this.props.match.params.personId){
-            id = this.props.match.params.personId;
-        } else {
-            id = 12595
+        let id = this.props.match.params.personId;
+        if(!id) {
+            id = this.props.myId;
+            if(!id){
+                this.props.history.push("./login");
+            }
         }
+
         this.props.getProfile(id);
         this.props.getMyStatus(id);
-        console.log(id);
     }
     render() {
         return (
@@ -33,7 +34,8 @@ const mapStateToProps = (state) => {
     return {
         postData: state.profileInformation.postData,
         profile: state.profileInformation.profile,
-        status: state.profileInformation.status
+        status: state.profileInformation.status,
+        myId: state.authenticationsInformation.authenticationsData.personId
     }
 }
 

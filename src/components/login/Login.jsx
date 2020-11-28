@@ -1,11 +1,17 @@
 import LoginForm from "./loginform/LoginForm";
 import {connect} from "react-redux";
-import {login, loginOut} from "../../redux/authenticationsReduser";
+import {login, loginOut} from "../../redux/authenticationsReducer";
+import React from "react";
+import {Redirect} from "react-router-dom";
+
 
 const Login = (props) => {
     const onSubmit = (formData) => {
         console.log(formData)
         props.login(formData);
+    }
+    if(props.isAuthentications){
+        return <Redirect to ="/profile/" />
     }
     return(
         <div>
