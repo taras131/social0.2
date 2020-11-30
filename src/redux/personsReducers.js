@@ -1,12 +1,11 @@
-import {APIPersons} from "../api/api";
+import {APIPersons, APIProfile} from "../api/api";
 
-const ADDCOLLEAGUE = "ADDCOLLEAGUE",
-      REMOVECOLLEAGUE = "REMOVECOLLEAGUE",
-      SETPERSONSDATA = "SETPERSONSDATA",
-      SETCURRENTPAGE = "SETCURRENTPAGE",
-      ALLUSERSCOUNT = "ALLUSERSCOUNT",
-      SETISLOADING = "SETISLOADING",
-      COLLEAGUEINPROGRESS = "COLLEAGUEINPROGRESS";
+const SETCOLLEAGUE = "SETCOLLEAGUE",
+    SETPERSONSDATA = "SETPERSONSDATA",
+    SETCURRENTPAGE = "SETCURRENTPAGE",
+    ALLUSERSCOUNT = "ALLUSERSCOUNT",
+    SETISLOADING = "SETISLOADING",
+    COLLEAGUEINPROGRESS = "COLLEAGUEINPROGRESS";
 let initialState = {
     personsData: [],
     pageSize: 12,
@@ -17,52 +16,41 @@ let initialState = {
 
 };
 const personReducer = (state = initialState, action) => {
-        switch (action.type){
-            case ADDCOLLEAGUE:
-                return ({
-                    ...state,
-                    personsData: state.personsData.map(item =>{
-                        if(item.id === action.id){
-                            return {...item, followed: true}
-                        } else
-                            return item;
-                    })
+    switch (action.type) {
+        case SETCOLLEAGUE:
+            return ({
+                ...state,
+                personsData: state.personsData.map(item => {
+                    if (item.id === action.id) {
+                        return {...item, followed: action.set}
+                    } else
+                        return item;
                 })
-            case REMOVECOLLEAGUE:
-                return ({
-                    ...state,
-                    personsData: state.personsData.map(item =>{
-                        if(item.id === action.id){
-                            return {...item, followed: false}
-                        } else {
-                            return item;
-                        }
-                    })
-                })
-            case SETPERSONSDATA:
-                return {...state, personsData: [...action.persons]}
-            case SETCURRENTPAGE:
-                return {...state, currentPage: action.currentPage}
-            case ALLUSERSCOUNT:
-                return {...state, allUsersCount: (action.allUsersCount/100)}
-            case SETISLOADING:
-                return {...state, isLoading: action.isLoading}
-            case COLLEAGUEINPROGRESS:
-                return ({
-                    ...state,
-                    ColleagueInProgress: (state.ColleagueInProgress.some(id => id == action.id))
-                        ? state.ColleagueInProgress.filter(id => id != action.id)
-                        : [...state.ColleagueInProgress, action.id]
-                })
-            default:
-                return state;
-        }
+            })
+        case SETPERSONSDATA:
+            return {...state, personsData: [...action.persons]}
+        case SETCURRENTPAGE:
+            return {...state, currentPage: action.currentPage}
+        case ALLUSERSCOUNT:
+            return {...state, allUsersCount: (action.allUsersCount / 100)}
+        case SETISLOADING:
+            return {...state, isLoading: action.isLoading}
+        case COLLEAGUEINPROGRESS:
+            return ({
+                ...state,
+                ColleagueInProgress: (state.ColleagueInProgress.some(id => id == action.id))
+                    ? state.ColleagueInProgress.filter(id => id != action.id)
+                    : [...state.ColleagueInProgress, action.id]
+            })
+        default:
+            return state;
+    }
 }
 export const addColleague = (id) => {
-    return {type: ADDCOLLEAGUE, id: id};
+    return {type: SETCOLLEAGUE, id: id, set: true};
 }
 export const removeColleague = (id) => {
-    return {type: REMOVECOLLEAGUE, id: id};
+    return {type: SETCOLLEAGUE, id: id, set: false};
 }
 export const setPersonsData = (persons) => {
     return {type: SETPERSONSDATA, persons};
@@ -79,38 +67,28 @@ export const setIsLoading = (isLoading) => {
 export const setColleagueInProgress = (id) => {
     return {type: COLLEAGUEINPROGRESS, id};
 }
-export const getPersons = (currentPage, pageSize) => {
-    return dispatch => {
-        dispatch(setIsLoading(true));
-        dispatch(setCurrentPage(currentPage));
-        APIPersons.getPersons(currentPage, pageSize)
-            .then(data => {
-                dispatch(setIsLoading(false));
-                dispatch(setPersonsData(data.items));
-                dispatch(setAllUsersCount(data.totalCount));
-            })
+export const getPersons = (currentPage, pageSize) => async (dispatch) => {
+    dispatch(setIsLoading(true));
+    dispatch(setCurrentPage(currentPage));
+    let response = await APIPersons.getPersons(currentPage, pageSize);
+    dispatch(setIsLoading(false));
+    dispatch(setPersonsData(response.items));
+    dispatch(setAllUsersCount(response.totalCount));
+}
+export const removeColleagueThunkCreator = (id) => async (dispatch) => {
+    dispatch(setColleagueInProgress(id));
+    let response = await APIPersons.removeColleague(id);
+    if (response.resultCode === 0) {
+        dispatch(removeColleague(id));
+        dispatch(setColleagueInProgress(id));
     }
 }
-export const removeColleagueThunkCreator = (id) => {
-    return dispatch => {
+export const addColleagueThunkCreator = (id) => async (dispatch) => {
+    dispatch(setColleagueInProgress(id));
+    let response = await APIPersons.addColleague(id);
+    if (response.resultCode === 0) {
+        dispatch(addColleague(id))
         dispatch(setColleagueInProgress(id));
-        APIPersons.removeColleague(id).then(data => {
-            if(data.resultCode === 0) {
-                dispatch(removeColleague(id));
-                dispatch(setColleagueInProgress(id));
-            }
-        });
-    }
-}
-export const addColleagueThunkCreator = (id) => {
-    return dispatch => {
-        dispatch(setColleagueInProgress(id));
-        APIPersons.addColleague(id).then(data => {
-            if(data.resultCode === 0) {
-                dispatch(addColleague(id))
-                dispatch(setColleagueInProgress(id));
-            }
-        });
     }
 }
 

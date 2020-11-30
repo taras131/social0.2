@@ -17,7 +17,7 @@ const Persons = (props) => {
                 </div>
                 <div className={style.personitems}>
                     {
-                        props.personsData.map(item => <div className={style.person}>
+                        props.personsData.map(item => <div key={item.id} className={style.person}>
                             <div>
                                 <div className={style.personinformation}>
                                     <div>

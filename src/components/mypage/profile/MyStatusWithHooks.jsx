@@ -1,8 +1,11 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 const MyStatusWithHooks = (props) => {
     let [status, setStatus] = useState(props.status);
     let [editMode, setEditMode] = useState(false);
+    useEffect(()=> {
+        setStatus(props.status);
+    },[props.status]);
     const activeEditMode = () => {
         setEditMode(true);
     }
