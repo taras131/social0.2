@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/components/login/loginform/Login.module.css"],"names":[],"mappings":"AAAA,oBACI,SAAU,CACV,cACJ","file":"4.3b59ef91.chunk.css","sourcesContent":[".error {\r\n    color: red;\r\n    font-size: 25px;\r\n}"]}
