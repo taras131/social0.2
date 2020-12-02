@@ -18,3 +18,9 @@ export const getIsLoading = (state) => {
 export const getColleagueInProgress = (state) => {
     return state.personsInformation.ColleagueInProgress
 }
+export const getPortionPage = (state) => {
+    return state.personsInformation.portionPage
+}
+export const getMultiplierPage = (state) => {
+    return state.personsInformation.multiplierPage
+}

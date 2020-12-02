@@ -11,9 +11,9 @@ let initialState = {
     pageSize: 12,
     allUsersCount: 0,
     currentPage: 1,
+    portionPage: 20,
     ColleagueInProgress: [],
     isLoading: false
-
 };
 const personReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -32,14 +32,14 @@ const personReducer = (state = initialState, action) => {
         case SETCURRENTPAGE:
             return {...state, currentPage: action.currentPage}
         case ALLUSERSCOUNT:
-            return {...state, allUsersCount: (action.allUsersCount / 100)}
+            return {...state, allUsersCount: (action.allUsersCount)}
         case SETISLOADING:
             return {...state, isLoading: action.isLoading}
         case COLLEAGUEINPROGRESS:
             return ({
                 ...state,
-                ColleagueInProgress: (state.ColleagueInProgress.some(id => id == action.id))
-                    ? state.ColleagueInProgress.filter(id => id != action.id)
+                ColleagueInProgress: (state.ColleagueInProgress.some(id => id === action.id))
+                    ? state.ColleagueInProgress.filter(id => id !== action.id)
                     : [...state.ColleagueInProgress, action.id]
             })
         default:
@@ -67,6 +67,7 @@ export const setIsLoading = (isLoading) => {
 export const setColleagueInProgress = (id) => {
     return {type: COLLEAGUEINPROGRESS, id};
 }
+
 export const getPersons = (currentPage, pageSize) => async (dispatch) => {
     dispatch(setIsLoading(true));
     dispatch(setCurrentPage(currentPage));

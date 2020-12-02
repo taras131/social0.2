@@ -13,7 +13,6 @@ let initialState = {
 const authenticationsReducer = (state = initialState, action) => {
     switch (action.type) {
         case SETPERSON:
-            console.log(action.login)
             return {
                 ...state, authenticationsData: {
                     personId: action.personId,

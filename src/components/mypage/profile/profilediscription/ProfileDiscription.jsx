@@ -1,6 +1,6 @@
 import style from "./ProfileDiscription.module.css";
 import Preloader from "../../../common/preloader/preloader";
-import MyStatusWithHooks from "../MyStatusWithHooks";
+import MyStatusWithHooks from "./mystatus/MyStatusWithHooks";
 
 const ProfileDiscription = (props) => {
     if (!props.profile) {
