@@ -9,7 +9,8 @@ class ExistingPost extends PureComponent {
         return (
             <div>
                 <div className={style.post_item}>
-                    <img src="https://vraki.net/sites/default/files/inline/images/1551511862_48.jpg"/>
+                    <img src={this.props.profile.photos.large ? this.props.profile.photos.large
+                        : "https://laowai.ru/wp-content/uploads/2015/11/pic2-nipic18.jpg"}/>
                     <div className={style.content}>{this.props.name}: {this.props.text}</div>
                     <div>
                         <div className={style.like}>

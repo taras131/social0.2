@@ -11,7 +11,7 @@ let initialState = {
     pageSize: 12,
     allUsersCount: 0,
     currentPage: 1,
-    portionPage: 20,
+    portionPage: 10,
     ColleagueInProgress: [],
     isLoading: false
 };

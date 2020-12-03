@@ -9,7 +9,7 @@ const PersonsPaginator = (props) => {
     let [multiplierPaginator, setMultiplierPaginator]= useState(1)
     let pagesCount = Math.ceil(props.allUsersCount / props.pageSize);
     let finalPage = Math.ceil(pagesCount/props.portionPage);
-    let startRenderPages = props.portionPage*multiplierPaginator-19;
+    let startRenderPages = props.portionPage*multiplierPaginator-props.portionPage+1;
     let stopRenderPages;
     if(props.portionPage*multiplierPaginator >= pagesCount){
         stopRenderPages = pagesCount;
@@ -22,11 +22,11 @@ const PersonsPaginator = (props) => {
     }
     const setPreviusPages= () => {
         setMultiplierPaginator(multiplierPaginator-1);
-        props.onPageChanged(stopRenderPages-20)
+        props.onPageChanged(stopRenderPages-props.portionPage)
     }
     const setNextPages= () => {
         setMultiplierPaginator(multiplierPaginator+1);
-        props.onPageChanged(startRenderPages+20);
+        props.onPageChanged(startRenderPages+props.portionPage);
     }
     const setFirstPages = () =>{
         setMultiplierPaginator(1);

@@ -34,11 +34,20 @@ export const APIProfile = {
                 return response.data
             })
     },
-    getMyStatusAPI(id){
+    getMyStatusAPI(id) {
         return instansAxios.get(`profile/status/${id}`)
     },
     updateMyStatus(status) {
         return instansAxios.put(`profile/status`, {status});
+    },
+    setProfilePhoto(file) {
+        const formData = new FormData();
+        formData.append("image", file)
+        return instansAxios.put(`/profile/photo`,formData, {
+            headers:{
+            "Content-Type": `multipart/form-data`
+            }
+        });
     }
 }
 export const APIHeader = {
@@ -50,8 +59,10 @@ export const APIHeader = {
     },
     login(formData) {
         console.log(formData);
-        return instansAxios.post(`/auth/login`,{ email: formData.login , password: formData.password ,
-            rememberMe: true , captcha: true})
+        return instansAxios.post(`/auth/login`, {
+            email: formData.login, password: formData.password,
+            rememberMe: true, captcha: true
+        })
     },
     loginOut() {
         return instansAxios.delete(`/auth/login`)

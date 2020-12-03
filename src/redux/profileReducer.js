@@ -3,7 +3,8 @@ import {APIProfile} from "../api/api";
 const ADDPOST = "ADDPOST",
     SETPROFILE = "SETPROFILE",
     SETSTATUS = "SETSTATUS",
-    DELETEPOST = "DELETEPOST";
+    DELETEPOST = "DELETEPOST",
+    SETPROFILEPHOTOSUCCES = "SETPROFILEPHOTOSUCCES";
 let initialState = {
     postData: [
         {id: 1, name: "Taras", text: "Это мой первый пост", likescount: 200},
@@ -29,6 +30,8 @@ const profileReducer = (state = initialState, action) => {
             return {...state, profile: action.profile}
         case SETSTATUS:
             return {...state, status: action.status}
+        case SETPROFILEPHOTOSUCCES:
+            return {...state, profile: {...state.profile, photos: action.photos}}
         default:
             return state;
     }
@@ -45,6 +48,9 @@ export const setProfile = (profile) => {
 export const setStatus = (status) => {
     return {type: SETSTATUS, status}
 }
+export const setProfilePhotoSucces = (photos) => {
+    return {type: SETPROFILEPHOTOSUCCES, photos}
+}
 export const getProfile = (id) => async (dispatch) => {
     let response = await APIProfile.getProfile(id);
     dispatch(setProfile(response));
@@ -57,6 +63,12 @@ export const updateMyStatus = (status) => async (dispatch) => {
     let response = await APIProfile.updateMyStatus(status);
     if (response.data.resultCode === 0) {
         dispatch(setStatus(status))
+    }
+}
+export const setProfilePhoto = (file) => async (dispatch) => {
+    let response = await APIProfile.setProfilePhoto(file);
+    if (response.data.resultCode === 0) {
+        dispatch(setProfilePhotoSucces(response.data.data.photos))
     }
 }
 
