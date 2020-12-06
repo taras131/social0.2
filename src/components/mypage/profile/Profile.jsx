@@ -1,18 +1,21 @@
 import ProfileDiscription from "./profilediscription/ProfileDiscription";
 import Posts from "./posts/Posts";
 import React from "react";
-import {Redirect} from "react-router-dom";
+import Preloader from "../../common/preloader/preloader";
 
 const Profile = (props) => {
-    console.log(props)
+    if (!props.profile || props.isProfileLoading) {
+        return <Preloader/>
+    }
     return (
         <div>
-            <ProfileDiscription profile = {props.profile} status = {props.status}
-                                updateMyStatus = {props.updateMyStatus}
-                                isOwner ={props.isOwner}
-                                setProfilePhoto = {props.setProfilePhoto} />
+            <ProfileDiscription profile={props.profile} status={props.status}
+                                updateMyStatus={props.updateMyStatus}
+                                isOwner={props.isOwner}
+                                setProfilePhoto={props.setProfilePhoto}
+                                updateProfile={props.updateProfile}/>
             <Posts postData={props.postData} addPost={props.addPost}
-                   profile = {props.profile}/>
+                   profile={props.profile}/>
         </div>
     )
 }

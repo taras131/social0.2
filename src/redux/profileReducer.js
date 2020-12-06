@@ -1,10 +1,12 @@
 import {APIProfile} from "../api/api";
+import {stopSubmit} from "redux-form";
 
 const ADDPOST = "ADDPOST",
     SETPROFILE = "SETPROFILE",
     SETSTATUS = "SETSTATUS",
     DELETEPOST = "DELETEPOST",
-    SETPROFILEPHOTOSUCCES = "SETPROFILEPHOTOSUCCES";
+    SETPROFILEPHOTOSUCCES = "SETPROFILEPHOTOSUCCES",
+    ISPROFILELOADING = "ISPROFILELOADING";
 let initialState = {
     postData: [
         {id: 1, name: "Taras", text: "Это мой первый пост", likescount: 200},
@@ -12,7 +14,8 @@ let initialState = {
         {id: 3, name: "Taras", text: "это я запостил из индекс js, прокинув пропс через Route!!! ", likescount: 500}
     ],
     profile: null,
-    status: ""
+    status: "",
+    isProfileLoading: false
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -32,6 +35,8 @@ const profileReducer = (state = initialState, action) => {
             return {...state, status: action.status}
         case SETPROFILEPHOTOSUCCES:
             return {...state, profile: {...state.profile, photos: action.photos}}
+        case ISPROFILELOADING:
+            return {...state ,isProfileLoading: action.isProfileLoading }
         default:
             return state;
     }
@@ -51,24 +56,47 @@ export const setStatus = (status) => {
 export const setProfilePhotoSucces = (photos) => {
     return {type: SETPROFILEPHOTOSUCCES, photos}
 }
+export const setProfileLoading = (isProfileLoading) => {
+    return {type: ISPROFILELOADING, isProfileLoading}
+}
 export const getProfile = (id) => async (dispatch) => {
+    dispatch(setProfileLoading(true))
     let response = await APIProfile.getProfile(id);
+    dispatch(setProfileLoading(false))
     dispatch(setProfile(response));
 }
 export const getMyStatus = (id) => async (dispatch) => {
+    dispatch(setProfileLoading(true))
     let response = await APIProfile.getMyStatusAPI(id);
+    dispatch(setProfileLoading(false))
     dispatch(setStatus(response.data))
 }
 export const updateMyStatus = (status) => async (dispatch) => {
+    dispatch(setProfileLoading(true))
     let response = await APIProfile.updateMyStatus(status);
+    dispatch(setProfileLoading(false))
     if (response.data.resultCode === 0) {
         dispatch(setStatus(status))
     }
 }
 export const setProfilePhoto = (file) => async (dispatch) => {
+    dispatch(setProfileLoading(true))
     let response = await APIProfile.setProfilePhoto(file);
+    dispatch(setProfileLoading(false))
     if (response.data.resultCode === 0) {
         dispatch(setProfilePhotoSucces(response.data.data.photos))
+    }
+}
+export const updateProfile = (formData) => async (dispatch, getState) => {
+    const id = getState().authenticationsInformation.authenticationsData. personId;
+    dispatch(setProfileLoading(true))
+    let response = await APIProfile.updateProfile(formData);
+    dispatch(setProfileLoading(false))
+    if(response.data.resultCode === 0){
+        dispatch(getProfile(id));
+    } else {
+        let  message = response.data.messages[0]
+        dispatch(stopSubmit("profile", {_error: message}));
     }
 }
 

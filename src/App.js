@@ -9,7 +9,7 @@ import Setting from "./components/setting/Setting"
 import PeopleList from "./components/peoplelist/PeopleList";
 import {connect, Provider} from "react-redux";
 import {getAuthMe} from "./redux/authenticationsReducer";
-import Route from "react-router-dom/es/Route";
+import {Route} from "react-router-dom";
 import {BrowserRouter, withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {initialezeApp} from "./redux/appReducer";

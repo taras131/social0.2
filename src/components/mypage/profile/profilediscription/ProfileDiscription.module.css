@@ -1,20 +1,66 @@
-  .ava{
-    margin-top: 10px;
+.profilewrapper{
+    min-height: 300px;
+}
+
+.ava {
+    margin-top: 20px;
     display: grid;
-      grid-template-rows: 170px;
+    grid-template-rows: 170px;
     grid-template-columns: 3fr 8fr;
     grid-gap: 10px;
-  }
-  
-  .ava img{
+}
+
+.ava img {
     height: 250px;
     border-radius: 4px;
-  }
-  
-  .discription{
+}
 
-    font-size: 20px
-  }
-  .item {
-      margin-top: 8px;
-  }
+.discription {
+    margin-left: 25px;
+    font-size: 20px;
+
+}
+
+.item {
+    margin-top: 8px;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+
+}
+.findings{
+    font-size: 15px;
+    background-color: wheat;
+    padding-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.status{
+    margin-top: 20px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+}
+.contactswrapper{
+    margin-top: 15px;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+.contactitem{
+
+}
+.input{
+    margin-top: 100px;
+}
+.contactsitem{
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+button{
+    height: 50px;
+    width: 200px;
+    margin-top: 25px;
+    background-color: cornflowerblue;
+    border-radius: 4px;
+    cursor: pointer;
+}

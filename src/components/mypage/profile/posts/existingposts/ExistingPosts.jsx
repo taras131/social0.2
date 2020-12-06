@@ -11,7 +11,7 @@ class ExistingPost extends PureComponent {
                 <div className={style.post_item}>
                     <img src={this.props.profile.photos.large ? this.props.profile.photos.large
                         : "https://laowai.ru/wp-content/uploads/2015/11/pic2-nipic18.jpg"}/>
-                    <div className={style.content}>{this.props.name}: {this.props.text}</div>
+                    <div className={style.content}>{this.props.profile.fullName}: {this.props.text}</div>
                     <div>
                         <div className={style.like}>
                             <img src="https://neoshtamp.ru/assets/images/products/111/odobreno.png"/>

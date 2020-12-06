@@ -48,6 +48,9 @@ export const APIProfile = {
             "Content-Type": `multipart/form-data`
             }
         });
+    },
+    updateProfile(formData) {
+        return instansAxios.put(`/profile`, formData);
     }
 }
 export const APIHeader = {

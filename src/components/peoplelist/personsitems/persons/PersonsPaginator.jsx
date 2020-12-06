@@ -47,9 +47,9 @@ const PersonsPaginator = (props) => {
                 <img src ={previusarrow} alt="previusarrow"/>
             </div>}
             <div>
-                {pages.map(item => {
+                {pages.map((item, index) => {
                     return(
-                    <span className={props.currentPage === item
+                    <span key={index} className={props.currentPage === item
                         ? style.dedicatedcount : style.count} onClick={(e) => {
                         props.onPageChanged(item)
                     }}>{item}</span>

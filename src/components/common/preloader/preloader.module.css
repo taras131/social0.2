@@ -1,6 +1,15 @@
-.preloader{
-    margin: 0 auto;
+.preloader {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 250px;
 }
-.preloader img{
-    height: 130px;
+
+.preloader img {
+    height: 80px;
+    border-radius: 5px;
+}
+
+.preloaderwrapper {
+
 }

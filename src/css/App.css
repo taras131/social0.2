@@ -18,6 +18,7 @@
   background: radial-gradient(at top, #FEFFFF, #A7CECC);
   border-radius: 4px;
   padding: 5px;
+  position: relative;
 }
 
 .active {

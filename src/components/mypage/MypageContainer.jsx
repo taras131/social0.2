@@ -9,7 +9,7 @@ import {
     input,
     setProfile,
     setProfilePhoto,
-    updateMyStatus
+    updateMyStatus, updateProfile
 } from "../../redux/profileReducer";
 import AuthenticationRedirectHOC from "../../hoc/AuthenticationRedirectHOC";
 import {compose} from "redux";
@@ -43,7 +43,8 @@ class MypageContainer extends React.Component {
         return (
             <div className={style.mypage}>
                 <Profile {...this.props} profile={this.props.profile} status={this.props.status}
-                         updateMyStatus={this.props.updateMyStatus} isOwner={!this.props.match.params.personId}/>
+                         updateMyStatus={this.props.updateMyStatus} isOwner={!this.props.match.params.personId}
+                         isProfileLoading={this.props.isProfileLoading} updateProfile={this.props.updateProfile}/>
             </div>
         );
     }
@@ -54,12 +55,14 @@ const mapStateToProps = (state) => {
         postData: state.profileInformation.postData,
         profile: state.profileInformation.profile,
         status: state.profileInformation.status,
-        myId: state.authenticationsInformation.authenticationsData.personId
+        myId: state.authenticationsInformation.authenticationsData.personId,
+        isProfileLoading: state.profileInformation.isProfileLoading
     }
 }
 
 export default compose(
-    connect(mapStateToProps, {addPost, setProfile, getProfile, getMyStatus, updateMyStatus, setProfilePhoto}),
+    connect(mapStateToProps, {addPost, setProfile, getProfile, getMyStatus, updateMyStatus, setProfilePhoto,
+        updateProfile}),
     withRouter,
     AuthenticationRedirectHOC
 )(MypageContainer);
