@@ -6,7 +6,7 @@ import {useState} from "react";
 import ProfileMode from "./profilemode/ProfileMode";
 
 const ProfileDiscription = (props) => {
-    const [editMode, setEditMode] = useState(false);
+    //const [editMode, setEditMode] = useState(false);
     const myPhotoSelected = (e) => {
         if (e.target.files.length > 0) {
             props.setProfilePhoto(e.target.files[0]);
@@ -22,7 +22,7 @@ const ProfileDiscription = (props) => {
             <div className={style.ava}>
                 <img src={props.profile.photos.large ? props.profile.photos.large
                     : "https://laowai.ru/wp-content/uploads/2015/11/pic2-nipic18.jpg"}/>
-                {editMode
+                {props.isEditMode
                     ? <div>
                         <ProfileMode profile={props.profile}
                                      onSubmit={onSubmit} initialValues ={props.profile} />
@@ -46,7 +46,7 @@ const ProfileDiscription = (props) => {
                         </div>
                         {props.isOwner && <input className={style.input} type={"file"} onChange={myPhotoSelected}/>}
                         {props.isOwner && <button onClick={() => {
-                            setEditMode(true)
+                            props.setProfileEditMode(true)
                         }}> Рeдактировать профиль </button>}
                     </div>}
 

@@ -64,10 +64,15 @@ export const APIHeader = {
         console.log(formData);
         return instansAxios.post(`/auth/login`, {
             email: formData.login, password: formData.password,
-            rememberMe: true, captcha: true
+            rememberMe: formData.rememberMe, captcha: formData.captcha
         })
     },
     loginOut() {
         return instansAxios.delete(`/auth/login`)
+    }
+}
+export const APISecurity = {
+    getCapchaURL() {
+        return instansAxios.get(`security/get-captcha-url`)
     }
 }

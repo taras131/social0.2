@@ -13,7 +13,9 @@ const Profile = (props) => {
                                 updateMyStatus={props.updateMyStatus}
                                 isOwner={props.isOwner}
                                 setProfilePhoto={props.setProfilePhoto}
-                                updateProfile={props.updateProfile}/>
+                                updateProfile={props.updateProfile}
+                                isEditMode={props.isEditMode}
+                                setProfileEditMode={props.setProfileEditMode}/>
             <Posts postData={props.postData} addPost={props.addPost}
                    profile={props.profile}/>
         </div>

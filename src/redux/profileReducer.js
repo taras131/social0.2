@@ -6,7 +6,8 @@ const ADDPOST = "ADDPOST",
     SETSTATUS = "SETSTATUS",
     DELETEPOST = "DELETEPOST",
     SETPROFILEPHOTOSUCCES = "SETPROFILEPHOTOSUCCES",
-    ISPROFILELOADING = "ISPROFILELOADING";
+    ISPROFILELOADING = "ISPROFILELOADING",
+    SETPROFILEEDITMODE = "SETPROFILEEDITMODE";
 let initialState = {
     postData: [
         {id: 1, name: "Taras", text: "Это мой первый пост", likescount: 200},
@@ -15,7 +16,8 @@ let initialState = {
     ],
     profile: null,
     status: "",
-    isProfileLoading: false
+    isProfileLoading: false,
+    isEditMode: false
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -36,7 +38,9 @@ const profileReducer = (state = initialState, action) => {
         case SETPROFILEPHOTOSUCCES:
             return {...state, profile: {...state.profile, photos: action.photos}}
         case ISPROFILELOADING:
-            return {...state ,isProfileLoading: action.isProfileLoading }
+            return {...state, isProfileLoading: action.isProfileLoading}
+        case SETPROFILEEDITMODE:
+            return {...state, isEditMode: action.isEditMode}
         default:
             return state;
     }
@@ -58,6 +62,9 @@ export const setProfilePhotoSucces = (photos) => {
 }
 export const setProfileLoading = (isProfileLoading) => {
     return {type: ISPROFILELOADING, isProfileLoading}
+}
+export const setProfileEditMode = (isEditMode) => {
+    return {type: SETPROFILEEDITMODE, isEditMode}
 }
 export const getProfile = (id) => async (dispatch) => {
     dispatch(setProfileLoading(true))
@@ -88,15 +95,18 @@ export const setProfilePhoto = (file) => async (dispatch) => {
     }
 }
 export const updateProfile = (formData) => async (dispatch, getState) => {
-    const id = getState().authenticationsInformation.authenticationsData. personId;
-    dispatch(setProfileLoading(true))
+    const id = getState().authenticationsInformation.authenticationsData.personId;
+    dispatch(setProfileLoading(true));
     let response = await APIProfile.updateProfile(formData);
-    dispatch(setProfileLoading(false))
-    if(response.data.resultCode === 0){
+    dispatch(setProfileLoading(false));
+    if (response.data.resultCode === 0) {
         dispatch(getProfile(id));
+        dispatch(setProfileEditMode(false));
     } else {
-        let  message = response.data.messages[0]
-        dispatch(stopSubmit("profile", {_error: message}));
+        let message = response.data.messages[0];
+        //let messageError =((message.split('>'))[1].replace(')', '')).toLowerCase()
+        //dispatch(stopSubmit("profile", { "contacts": {messageError: response.data.messages[0]}}))
+        dispatch(stopSubmit("profile", {_error: message}))
     }
 }
 

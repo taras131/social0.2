@@ -3,7 +3,6 @@ import React from "react";
 import {TEXTAREAINPUT} from "../../common/formcontrol/FormControl";
 import {maxLength, requiredField} from "../../../utils/validations/validations";
 import style from "./Login.module.css";
-
 const maxLength30 = maxLength(30);
 const Input = TEXTAREAINPUT("input");
 const LoginForm = (props) => {
@@ -29,6 +28,12 @@ const LoginForm = (props) => {
                     <div className={style.error}>
                         {props.error}
                     </div>
+                    {props.captchaURL &&
+                    <div>
+                        <img src={props.captchaURL} alt="props.captchaURL"/>
+                        <Field placeholder={"Введите символы"} component = {Input} name={"captcha"}
+                               validate = {[requiredField]}/>
+                    </div>}
                     <div>
                         <button>Войти</button>
                     </div>
