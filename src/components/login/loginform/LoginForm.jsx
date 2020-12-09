@@ -14,15 +14,15 @@ const LoginForm = (props) => {
             {props.isAuthentications
                 ?   <button onClick={loginOut}>Выйти</button>
                 :<form onSubmit={props.handleSubmit}>
-                    <div>
+                    <div className={style.autchitem}>
                         <Field placeholder={"Логин"} component = {Input} name={"login"}
                                validate = {[requiredField, maxLength30]}/>
                     </div>
-                    <div>
+                    <div className={style.autchitem}>
                         <Field placeholder={"Пароль"} component = {Input} name={"password"}
                                validate = {[requiredField, maxLength30]}/>
                     </div>
-                    <div>
+                    <div className={style.autchitem}>
                         <Field type={"checkbox"} component = {"input"} name={"rememberMe"}/> Запомни меня
                     </div>
                     <div className={style.error}>

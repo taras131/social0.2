@@ -33,6 +33,7 @@
     padding-left: 10px;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 5px;
 }
 .status{
     margin-top: 20px;
@@ -46,7 +47,7 @@
     grid-template-columns: 1fr 3fr;
 }
 .contactitem{
-
+    margin-top: 5px;
 }
 .input{
     margin-top: 100px;

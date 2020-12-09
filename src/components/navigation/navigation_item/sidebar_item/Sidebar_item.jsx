@@ -1,15 +1,19 @@
 import style from "./Sidebar_item.module.css";
+import anonimavatar from "../../../../img/anonimavatar.jpg";
+import React from "react";
+import {NavLink} from "react-router-dom";
 
 const Sidebaritem = (props) => {
     return (
-        <div className = {style.item}>
+        <NavLink disabled={true} className={style.item} to={"/profile/" + props.id}>
             <div>
-                <img src = {props.url} />
+                <img src={props.img != null ? props.img
+                    : anonimavatar}/>
             </div>
             <div>
                 {props.name}
             </div>
-        </div>
+        </NavLink>
     );
 }
 

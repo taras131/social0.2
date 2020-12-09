@@ -1,5 +1,6 @@
 import {APIProfile} from "../api/api";
 import {stopSubmit} from "redux-form";
+import {addError} from "./errorReducer";
 
 const ADDPOST = "ADDPOST",
     SETPROFILE = "SETPROFILE",
@@ -67,46 +68,71 @@ export const setProfileEditMode = (isEditMode) => {
     return {type: SETPROFILEEDITMODE, isEditMode}
 }
 export const getProfile = (id) => async (dispatch) => {
-    dispatch(setProfileLoading(true))
-    let response = await APIProfile.getProfile(id);
-    dispatch(setProfileLoading(false))
-    dispatch(setProfile(response));
+    dispatch(setProfileLoading(true));
+    try {
+        let response = await APIProfile.getProfile(id);
+        dispatch(setProfileLoading(false));
+        dispatch(setProfile(response.data));
+    } catch (e) {
+        dispatch(setProfileLoading(false));
+        dispatch(addError());
+    }
 }
 export const getMyStatus = (id) => async (dispatch) => {
-    dispatch(setProfileLoading(true))
-    let response = await APIProfile.getMyStatusAPI(id);
-    dispatch(setProfileLoading(false))
-    dispatch(setStatus(response.data))
+    dispatch(setProfileLoading(true));
+    try {
+        let response = await APIProfile.getMyStatusAPI(id);
+        dispatch(setStatus(response.data));
+    } catch (e) {
+        dispatch(addError());
+    } finally {
+        dispatch(setProfileLoading(false));
+    }
 }
 export const updateMyStatus = (status) => async (dispatch) => {
     dispatch(setProfileLoading(true))
-    let response = await APIProfile.updateMyStatus(status);
-    dispatch(setProfileLoading(false))
-    if (response.data.resultCode === 0) {
-        dispatch(setStatus(status))
+    try {
+        let response = await APIProfile.updateMyStatus(status);
+        if (response.data.resultCode === 0) {
+            dispatch(setStatus(status))
+        }
+    } catch (e) {
+        dispatch(addError());
+    } finally {
+        dispatch(setProfileLoading(false))
     }
 }
 export const setProfilePhoto = (file) => async (dispatch) => {
     dispatch(setProfileLoading(true))
-    let response = await APIProfile.setProfilePhoto(file);
-    dispatch(setProfileLoading(false))
-    if (response.data.resultCode === 0) {
-        dispatch(setProfilePhotoSucces(response.data.data.photos))
+    try {
+        let response = await APIProfile.setProfilePhoto(file);
+        if (response.data.resultCode === 0) {
+            dispatch(setProfilePhotoSucces(response.data.data.photos))
+        }
+    } catch (e) {
+        dispatch(addError());
+    } finally {
+        dispatch(setProfileLoading(false))
     }
 }
 export const updateProfile = (formData) => async (dispatch, getState) => {
     const id = getState().authenticationsInformation.authenticationsData.personId;
     dispatch(setProfileLoading(true));
-    let response = await APIProfile.updateProfile(formData);
-    dispatch(setProfileLoading(false));
-    if (response.data.resultCode === 0) {
-        dispatch(getProfile(id));
+    try {
+        let response = await APIProfile.updateProfile(formData);
+        dispatch(setProfileLoading(false));
+        if (response.data.resultCode === 0) {
+            dispatch(getProfile(id));
+        } else {
+            let message = response.data.messages[0];
+            //let messageError =((message.split('>'))[1].replace(')', '')).toLowerCase()
+            //dispatch(stopSubmit("profile", { "contacts": {messageError: response.data.messages[0]}}))
+            dispatch(stopSubmit("profile", {_error: message}))
+        }
+    } catch (e) {
+        dispatch(addError());
+    } finally {
         dispatch(setProfileEditMode(false));
-    } else {
-        let message = response.data.messages[0];
-        //let messageError =((message.split('>'))[1].replace(')', '')).toLowerCase()
-        //dispatch(stopSubmit("profile", { "contacts": {messageError: response.data.messages[0]}}))
-        dispatch(stopSubmit("profile", {_error: message}))
     }
 }
 

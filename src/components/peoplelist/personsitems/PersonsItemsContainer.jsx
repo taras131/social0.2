@@ -5,7 +5,6 @@ import {
     getPersons,
     removeColleagueThunkCreator,
     addColleagueThunkCreator,
-    setPages
 } from "../../../redux/personsReducers";
 import React from "react";
 import Persons from "./persons/Persons";
@@ -13,11 +12,12 @@ import Preloader from "../../common/preloader/preloader";
 import {compose} from "redux";
 import {
     getAllUsersCount, getColleagueInProgress, getCurrentPage,
-    getPageSize, getIsLoading, getAllPersons, getPortionPage, getMultiplierPage
+    getPageSize, getIsLoading, getAllPersons, getPortionPage
 } from "../../../redux/personsSelectors";
-
+import ErrorMessage from "../../common/errormessage/ErrorMessage";
 
 class PersonsItemsContainer extends React.Component {
+
     componentDidMount() {
         this.props.getPersons(this.props.currentPage, this.props.pageSize);
     }
@@ -28,8 +28,10 @@ class PersonsItemsContainer extends React.Component {
 
     render() {
         return <>
+            {this.props.isError ? <ErrorMessage text={"Ошибка загрузки пользователей. " +
+            "Пожалуста попоробуйте позже."}/> : null}
             {this.props.isLoading ? <Preloader/> : null}
-            <Persons {...this.props} onPageChanged = {this.onPageChanged} />
+            <Persons {...this.props} onPageChanged={this.onPageChanged}/>
         </>
     }
 }
@@ -43,13 +45,15 @@ const mapStateToProps = (state) => {
         isLoading: getIsLoading(state),
         ColleagueInProgress: getColleagueInProgress(state),
         portionPage: getPortionPage(state),
+        isError: state.errorInformation.isError
     }
 }
 
 export default compose(
     connect(mapStateToProps, {
         setCurrentPage, setColleagueInProgress, getPersons,
-        removeColleagueThunkCreator, addColleagueThunkCreator,}),
+        removeColleagueThunkCreator, addColleagueThunkCreator,
+    }),
     //AuthenticationRedirectHOC
 )(PersonsItemsContainer)
 

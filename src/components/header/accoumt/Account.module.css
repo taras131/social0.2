@@ -1,4 +1,22 @@
-.account  {
+.accountwrapper {
     color: black;
+
+}
+.account{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+button {
+    margin-top: 10px;
+    border-radius: 4px;
+    text-decoration: none;
     cursor: pointer;
-  }
+    background-color: cornflowerblue;
+    text-decoration: none;
+}
+.loginname{
+    text-decoration: none;
+}

@@ -8,8 +8,7 @@ const Persons = (props) => {
                                                         ColleagueInProgress={props.ColleagueInProgress}
                                                         addColleagueThunkCreator={props.addColleagueThunkCreator}
                                                         removeColleagueThunkCreator={props.removeColleagueThunkCreator}
-                                                        followed={props.followed}
-                                                        key={item.id}/>)
+                                                        followed={props.followed} key={item.id}/>)
     return <div>
         <PersonsPaginator allUsersCount={props.allUsersCount}
                           pageSize={props.pageSize}

@@ -2,3 +2,22 @@
     color: red;
     font-size: 25px;
 }
+.loginwrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.autchitem{
+    margin-top: 15px;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+form button{
+    height: 30px;
+    width: 90px;
+}

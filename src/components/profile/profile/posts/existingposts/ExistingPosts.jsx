@@ -1,6 +1,6 @@
 import style from "./Post.module.css";
 import {PureComponent} from "react";
-
+import anonimavatar from "../../../../../img/anonimavatar.jpg";
 
 class ExistingPost extends PureComponent {
 
@@ -10,7 +10,7 @@ class ExistingPost extends PureComponent {
             <div>
                 <div className={style.post_item}>
                     <img src={this.props.profile.photos.large ? this.props.profile.photos.large
-                        : "https://laowai.ru/wp-content/uploads/2015/11/pic2-nipic18.jpg"}/>
+                        : anonimavatar}/>
                     <div className={style.content}>{this.props.profile.fullName}: {this.props.text}</div>
                     <div>
                         <div className={style.like}>

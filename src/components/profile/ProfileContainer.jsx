@@ -1,12 +1,11 @@
 import React from "react";
-import style from "./Mypage.module.css";
+import style from "./profileContainer.module.css";
 import Profile from "./profile/Profile";
 import {connect} from "react-redux";
 import {
     addPost,
     getMyStatus,
     getProfile,
-    input,
     setProfile, setProfileEditMode,
     setProfilePhoto,
     updateMyStatus, updateProfile
@@ -15,7 +14,7 @@ import AuthenticationRedirectHOC from "../../hoc/AuthenticationRedirectHOC";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 
-class MypageContainer extends React.Component {
+class ProfileContainer extends React.Component {
     updateProfile() {
         let id = this.props.match.params.personId;
         if (!id) {
@@ -27,25 +26,30 @@ class MypageContainer extends React.Component {
         this.props.getProfile(id);
         this.props.getMyStatus(id);
     }
+
     componentDidMount() {
         this.updateProfile();
     }
+
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.match.params.personId !== prevProps.match.params.personId) {
             this.updateProfile();
         }
     }
+
     render() {
         return (
             <div className={style.mypage}>
                 <Profile {...this.props} profile={this.props.profile} status={this.props.status}
                          updateMyStatus={this.props.updateMyStatus} isOwner={!this.props.match.params.personId}
                          isProfileLoading={this.props.isProfileLoading} updateProfile={this.props.updateProfile}
-                         isEditMode={this.props.isEditMode} setProfileEditMode={this.props.setProfileEditMode}/>
+                         isEditMode={this.props.isEditMode} setProfileEditMode={this.props.setProfileEditMode}
+                         isError ={this.props.isError}/>
             </div>
         );
     }
 }
+
 const mapStateToProps = (state) => {
     return {
         postData: state.profileInformation.postData,
@@ -53,7 +57,8 @@ const mapStateToProps = (state) => {
         status: state.profileInformation.status,
         myId: state.authenticationsInformation.authenticationsData.personId,
         isProfileLoading: state.profileInformation.isProfileLoading,
-        isEditMode: state.profileInformation.isEditMode
+        isEditMode: state.profileInformation.isEditMode,
+        isError: state.errorInformation.isError
     }
 }
 export default compose(
@@ -63,7 +68,7 @@ export default compose(
     }),
     withRouter,
     AuthenticationRedirectHOC
-)(MypageContainer);
+)(ProfileContainer);
 
 
 

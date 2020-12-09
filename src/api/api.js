@@ -10,9 +10,6 @@ const instansAxios = axios.create({
 export const APIPersons = {
     getPersons(currentPage, pageSize) {
         return instansAxios.get(`users?page=${currentPage}&count=${pageSize}`)
-            .then(response => {
-                return response.data
-            });
     },
     removeColleague(id) {
         return instansAxios.delete(`follow/${id}`)
@@ -30,9 +27,6 @@ export const APIPersons = {
 export const APIProfile = {
     getProfile(id) {
         return instansAxios.get(`profile/${id}`)
-            .then(response => {
-                return response.data
-            })
     },
     getMyStatusAPI(id) {
         return instansAxios.get(`profile/status/${id}`)

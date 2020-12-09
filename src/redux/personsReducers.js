@@ -1,4 +1,6 @@
 import {APIPersons, APIProfile} from "../api/api";
+import {addError} from "./errorReducer";
+import {sidebarAddColleague, sidebarRemoveColleague} from "./sidebarReducer";
 
 const SETCOLLEAGUE = "SETCOLLEAGUE",
     SETPERSONSDATA = "SETPERSONSDATA",
@@ -71,10 +73,16 @@ export const setColleagueInProgress = (id) => {
 export const getPersons = (currentPage, pageSize) => async (dispatch) => {
     dispatch(setIsLoading(true));
     dispatch(setCurrentPage(currentPage));
-    let response = await APIPersons.getPersons(currentPage, pageSize);
-    dispatch(setIsLoading(false));
-    dispatch(setPersonsData(response.items));
-    dispatch(setAllUsersCount(response.totalCount));
+    try{
+        let response = await APIPersons.getPersons(currentPage, pageSize);
+        dispatch(setIsLoading(false));
+        dispatch(setPersonsData(response.data.items));
+        dispatch(setAllUsersCount(response.data.totalCount));
+    }
+    catch (e) {
+        dispatch(setIsLoading(false));
+        dispatch(addError());
+    }
 }
 export const removeColleagueThunkCreator = (id) => async (dispatch) => {
     dispatch(setColleagueInProgress(id));
@@ -82,14 +90,16 @@ export const removeColleagueThunkCreator = (id) => async (dispatch) => {
     if (response.resultCode === 0) {
         dispatch(removeColleague(id));
         dispatch(setColleagueInProgress(id));
+        dispatch(sidebarRemoveColleague(id));
     }
 }
-export const addColleagueThunkCreator = (id) => async (dispatch) => {
-    dispatch(setColleagueInProgress(id));
-    let response = await APIPersons.addColleague(id);
+export const addColleagueThunkCreator = (profile) => async (dispatch) => {
+    dispatch(setColleagueInProgress(profile.id));
+    let response = await APIPersons.addColleague(profile.id);
     if (response.resultCode === 0) {
-        dispatch(addColleague(id))
-        dispatch(setColleagueInProgress(id));
+        dispatch(addColleague(profile.id))
+        dispatch(setColleagueInProgress(profile.id));
+        dispatch(sidebarAddColleague(profile))
     }
 }
 

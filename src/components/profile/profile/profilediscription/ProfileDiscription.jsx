@@ -2,11 +2,11 @@ import React from "react";
 import style from "./ProfileDiscription.module.css";
 import MyStatusWithHooks from "./mystatus/MyStatusWithHooks";
 import Contacts from "./contacts/Contacts";
-import {useState} from "react";
 import ProfileMode from "./profilemode/ProfileMode";
+import ErrorMessage from "../../../common/errormessage/ErrorMessage";
+import anonimavatar from "../../../../img/anonimavatar.jpg";
 
 const ProfileDiscription = (props) => {
-    //const [editMode, setEditMode] = useState(false);
     const myPhotoSelected = (e) => {
         if (e.target.files.length > 0) {
             props.setProfilePhoto(e.target.files[0]);
@@ -15,13 +15,16 @@ const ProfileDiscription = (props) => {
     const onSubmit = (formData) => {
         props.updateProfile(formData)
     }
+    if(props.isError){
+        return <ErrorMessage text = {"Ошибка , попробуйте повторить попытку позже."}/>
+    }
     return (
         <div className={style.profilewrapper}>
             <MyStatusWithHooks status={props.status} updateMyStatus={props.updateMyStatus}
                                isOwner={props.isOwner} profile={props.profile}/>
             <div className={style.ava}>
                 <img src={props.profile.photos.large ? props.profile.photos.large
-                    : "https://laowai.ru/wp-content/uploads/2015/11/pic2-nipic18.jpg"}/>
+                    : anonimavatar}/>
                 {props.isEditMode
                     ? <div>
                         <ProfileMode profile={props.profile}

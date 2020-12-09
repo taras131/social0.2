@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {login, loginOut} from "../../redux/authenticationsReducer";
 import React from "react";
 import {Redirect} from "react-router-dom";
-
+import style from"./loginform/Login.module.css";
 
 const Login = (props) => {
     const onSubmit = (formData) => {
@@ -13,7 +13,7 @@ const Login = (props) => {
         return <Redirect to ="/profile/" />
     }
     return(
-        <div>
+        <div className={style.loginwrapper}>
             <h1>Ввведите логин и пароль</h1>
             <LoginForm onSubmit={onSubmit} isAuthentications = {props.isAuthentications}
                        loginOut ={props.loginOut}  captchaURL = {props. captchaURL} />

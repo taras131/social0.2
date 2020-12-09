@@ -1,0 +1,7 @@
+.colleagueitemwrapper img {
+    height: 150px;
+}
+.colleagueitemwrapper{
+    display: grid;
+    grid-template-columns: 2fr 6fr;
+}

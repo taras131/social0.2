@@ -1,6 +1,7 @@
 import style from "../Persons.module.css";
 import React from "react";
 import {NavLink} from "react-router-dom";
+import anonimavatar from"../../../../../img/anonimavatar.jpg"
 
 const Person = (props) => {
     return (<NavLink disabled={true}
@@ -10,7 +11,7 @@ const Person = (props) => {
                     <div className={style.personinformation}>
                         <div>
                             <img src={props.person.photos.small != null ? props.person.photos.small
-                                : "https://yt3.ggpht.com/a/AATXAJx8MagglWeof2zL5R6Shk3KU8mmthN1Pl5Of0ih=s900-c-k-c0xffffffff-no-rj-mo"}/>
+                                : anonimavatar}/>
                         </div>
                         <div className={style.data}>
                             <div></div>
@@ -30,7 +31,7 @@ const Person = (props) => {
                         : <button disabled={props.ColleagueInProgress.some(id => id === props.person.id)}
                                   className={style.buttonadd} onClick={(e) => {
                             e.preventDefault();
-                            props.addColleagueThunkCreator(props.person.id);
+                            props.addColleagueThunkCreator(props.person);
                         }}>в коллеги</button>}
                 </div>
             </div>
