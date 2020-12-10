@@ -55,7 +55,6 @@ export const APIHeader = {
             })
     },
     login(formData) {
-        console.log(formData);
         return instansAxios.post(`/auth/login`, {
             email: formData.login, password: formData.password,
             rememberMe: formData.rememberMe, captcha: formData.captcha
@@ -68,5 +67,10 @@ export const APIHeader = {
 export const APISecurity = {
     getCapchaURL() {
         return instansAxios.get(`security/get-captcha-url`)
+    }
+}
+export const APIColleague = {
+    getColleague() {
+        return instansAxios.get(`users?count=${100}&friend=${true}`)
     }
 }

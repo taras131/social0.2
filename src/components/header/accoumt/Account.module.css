@@ -1,13 +1,13 @@
 .accountwrapper {
     color: black;
-
+    text-decoration: none;
 }
 .account{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
+    text-decoration: none;
 }
 button {
     margin-top: 10px;

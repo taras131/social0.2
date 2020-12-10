@@ -11,7 +11,7 @@ const Sidebaritem = (props) => {
                     : anonimavatar}/>
             </div>
             <div>
-                {props.name}
+                {props.name.split(" ")[0].substr(0,10)}
             </div>
         </NavLink>
     );

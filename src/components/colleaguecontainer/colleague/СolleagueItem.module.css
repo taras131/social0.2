@@ -1,7 +1,52 @@
 .colleagueitemwrapper img {
-    height: 150px;
+    height: 100px;
+    border-radius: 4px;
 }
-.colleagueitemwrapper{
+
+.colleagueitemwrapper {
+    border-radius: 4px;
+    margin-left: 10px;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #7FAFD5;
+    text-decoration: none;
+}
+.colleagueitemwrapper:hover{
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+.avadiscripyionblok{
     display: grid;
-    grid-template-columns: 2fr 6fr;
+    grid-template-columns: 1fr 3fr;
+}
+.colleagueswrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.colleagueitemwrapper button {
+    border: none;
+    background-color: gainsboro;
+}
+
+.colleagueitemwrapper button b {
+    text-decoration: none;
+}
+
+.itemdiscription {
+    margin-left: 9px;
+    text-decoration: none;
+}
+
+.buttonblok {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.buttonblok button{
+    height: 50px;
+    width: 100px;
+}
+.buttonblok .buttonmessage{
+
 }

@@ -3,9 +3,7 @@ import {PureComponent} from "react";
 import anonimavatar from "../../../../../img/anonimavatar.jpg";
 
 class ExistingPost extends PureComponent {
-
     render() {
-        console.log("render");
         return (
             <div>
                 <div className={style.post_item}>

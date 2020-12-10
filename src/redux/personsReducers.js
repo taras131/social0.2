@@ -1,6 +1,6 @@
 import {APIPersons, APIProfile} from "../api/api";
 import {addError} from "./errorReducer";
-import {sidebarAddColleague, sidebarRemoveColleague} from "./sidebarReducer";
+import {getColleague} from "./colleagueReducer";
 
 const SETCOLLEAGUE = "SETCOLLEAGUE",
     SETPERSONSDATA = "SETPERSONSDATA",
@@ -75,13 +75,14 @@ export const getPersons = (currentPage, pageSize) => async (dispatch) => {
     dispatch(setCurrentPage(currentPage));
     try{
         let response = await APIPersons.getPersons(currentPage, pageSize);
-        dispatch(setIsLoading(false));
         dispatch(setPersonsData(response.data.items));
         dispatch(setAllUsersCount(response.data.totalCount));
     }
     catch (e) {
-        dispatch(setIsLoading(false));
         dispatch(addError());
+    }
+    finally {
+        dispatch(setIsLoading(false));
     }
 }
 export const removeColleagueThunkCreator = (id) => async (dispatch) => {
@@ -90,7 +91,7 @@ export const removeColleagueThunkCreator = (id) => async (dispatch) => {
     if (response.resultCode === 0) {
         dispatch(removeColleague(id));
         dispatch(setColleagueInProgress(id));
-        dispatch(sidebarRemoveColleague(id));
+        dispatch(getColleague());
     }
 }
 export const addColleagueThunkCreator = (profile) => async (dispatch) => {
@@ -99,7 +100,7 @@ export const addColleagueThunkCreator = (profile) => async (dispatch) => {
     if (response.resultCode === 0) {
         dispatch(addColleague(profile.id))
         dispatch(setColleagueInProgress(profile.id));
-        dispatch(sidebarAddColleague(profile))
+        dispatch(getColleague());
     }
 }
 

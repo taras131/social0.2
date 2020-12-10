@@ -12,7 +12,7 @@ const СolleagueContainer =(props)=>{
 }
 const mapStateToProps = (state) => {
     return {
-        colleagueData: state.sidebarInformation.colleagueData
+        colleagueData: state.colleagueInformation.colleagueData
     }
 }
 export default connect(mapStateToProps, {removeColleagueThunkCreator})(СolleagueContainer)
