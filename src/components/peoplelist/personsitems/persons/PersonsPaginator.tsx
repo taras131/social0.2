@@ -5,16 +5,25 @@ import previusarrow from "../../../../icons/previusarrow.png";
 import dublenextarrow from "../../../../icons/dublenextarrow.png";
 import dublepreviusarrow from "../../../../icons/dublepreviusarrow.png";
 
-const PersonsPaginator = (props) => {
+type PropsType = {
+    pageSize: number
+    allUsersCount: number
+    portionPage: number
+    currentPage: number
+    onPageChanged: (pagesCount: number)=>void
+}
+
+const PersonsPaginator: React.FC<PropsType > = ({pageSize,allUsersCount, portionPage,
+                                                    currentPage, onPageChanged}) => {
     let [multiplierPaginator, setMultiplierPaginator]= useState(1)
-    let pagesCount = Math.ceil(props.allUsersCount / props.pageSize);
-    let finalPage = Math.ceil(pagesCount/props.portionPage);
-    let startRenderPages = props.portionPage*multiplierPaginator-props.portionPage+1;
-    let stopRenderPages;
-    if(props.portionPage*multiplierPaginator >= pagesCount){
+    let pagesCount = Math.ceil(allUsersCount / pageSize);
+    let finalPage = Math.ceil(pagesCount/portionPage);
+    let startRenderPages = portionPage*multiplierPaginator-portionPage+1;
+    let stopRenderPages: number;
+    if(portionPage*multiplierPaginator >= pagesCount){
         stopRenderPages = pagesCount;
     } else {
-        stopRenderPages = props.portionPage*multiplierPaginator;
+        stopRenderPages = portionPage*multiplierPaginator;
     }
     let pages = [];
     for (let i = startRenderPages; i <= stopRenderPages; i++) {
@@ -22,19 +31,19 @@ const PersonsPaginator = (props) => {
     }
     const setPreviusPages= () => {
         setMultiplierPaginator(multiplierPaginator-1);
-        props.onPageChanged(stopRenderPages-props.portionPage)
+        onPageChanged(stopRenderPages-portionPage)
     }
     const setNextPages= () => {
         setMultiplierPaginator(multiplierPaginator+1);
-        props.onPageChanged(startRenderPages+props.portionPage);
+        onPageChanged(startRenderPages+portionPage);
     }
     const setFirstPages = () =>{
         setMultiplierPaginator(1);
-        props.onPageChanged(1);
+        onPageChanged(1);
     }
     const setFinalPages = () =>{
         setMultiplierPaginator(finalPage);
-        props.onPageChanged(pagesCount);
+        onPageChanged(pagesCount);
     }
     return (
         <div className={style.pagenatorwrapper}>
@@ -49,9 +58,9 @@ const PersonsPaginator = (props) => {
             <div>
                 {pages.map((item, index) => {
                     return(
-                    <span key={index} className={props.currentPage === item
+                    <span key={index} className={currentPage === item
                         ? style.dedicatedcount : style.count} onClick={(e) => {
-                        props.onPageChanged(item)
+                        onPageChanged(item)
                     }}>{item}</span>
                     )
                 })}

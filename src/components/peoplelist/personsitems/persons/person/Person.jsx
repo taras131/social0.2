@@ -20,6 +20,7 @@ const Person = (props) => {
                             <div>Город:</div>
                         </div>
                     </div>
+                    
                 </div>
                 <div className={style.button}>
                     {props.person.followed

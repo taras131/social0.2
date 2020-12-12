@@ -2,12 +2,16 @@ import {APIColleague} from "../api/api";
 
 const COLLEAGUEREDUSER_SETCOLLEAGUE = "COLLEAGUEREDUSER_SETCOLLEAGUE",
     COLLEAGUEREDUSER_SETISLOANDING = "COLLEAGUEREDUSER_SETISLOANDING";
-const initialState = {
+type InitialStateType = {
+    colleagueData: Array<object>
+    isLoadingcolleagueReducer: boolean
+}
+const initialState: InitialStateType = {
     colleagueData: [],
     isLoadingcolleagueReducer: false
 }
 
-const colleagueReducer = (state = initialState, action) => {
+const colleagueReducer = (state = initialState, action: any): any => {
     switch (action.type) {
         case COLLEAGUEREDUSER_SETCOLLEAGUE:
             return {...state, colleagueData: action.colleagues}
@@ -17,24 +21,20 @@ const colleagueReducer = (state = initialState, action) => {
             return state
     }
 }
-export const setColleague = (colleagues) => {
+export const setColleague = (colleagues: any): any => {
     return {type: COLLEAGUEREDUSER_SETCOLLEAGUE, colleagues}
 }
-export const setIsLoandingColleagueReduser = (value) => {
+export const setIsLoandingColleagueReduser = (value: any): any => {
     return {type: COLLEAGUEREDUSER_SETISLOANDING, value}
 }
-export const getColleague = () => async (dispatch) => {
+export const getColleague = () => async (dispatch: any) => {
     dispatch(setIsLoandingColleagueReduser(true));
-    try {
+
         let response = await APIColleague.getColleague();
         dispatch(setColleague(response.data.items));
-        console.log("response.data.items")
-    } catch (e) {
 
-    } finally {
         dispatch(setIsLoandingColleagueReduser(false));
-    }
-}
 
+}
 
 export default colleagueReducer;

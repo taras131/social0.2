@@ -3,11 +3,14 @@ import {getAuthMe} from "./authenticationsReducer";
 
 const SETINITIALIZED = "SETINITIALIZED",
     CANCELEDINITIALIZED = "CANCELEDINITIALIZED";
-let initialState = {
+type InitialStateType ={
+    initialized: boolean
+}
+let initialState: InitialStateType = {
     initialized: false
 };
 
-const appReducer = (state = initialState, action) => {
+const appReducer = (state = initialState, action: any) => {
     switch (action.type) {
         case SETINITIALIZED:
             return {...state, initialized: true}
@@ -17,13 +20,19 @@ const appReducer = (state = initialState, action) => {
             return state;
     }
 }
-export const setInitializedSuccess = () => {
+type SetInitializedSuccessActionType = {
+    type: typeof SETINITIALIZED
+}
+export const setInitializedSuccess = (): SetInitializedSuccessActionType => {
     return {type: SETINITIALIZED}
 }
-export const setInitializedСanceled = () => {
+type SetInitializedСanceledActionType = {
+    type: typeof CANCELEDINITIALIZED
+}
+export const setInitializedСanceled = (): SetInitializedСanceledActionType => {
     return {type: CANCELEDINITIALIZED}
 }
-export const initialezeApp = () => async (dispatch) => {
+export const initialezeApp = () => async (dispatch: any) => {
     await dispatch(getAuthMe());
     dispatch(setInitializedSuccess());
 }

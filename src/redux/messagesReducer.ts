@@ -2,6 +2,16 @@ const ADDMESSAGE = "ADDMESSAGE",
     DELETEMESSAGE = "DELETEMESSAGE",
     ADDNEWDIALOG = "ADDNEWDIALOG",
     DELETEDIALOG = "DELETEDIALOG";
+type DialogsType = {
+    id: number
+    name: string
+    url: string
+}
+type MessagesType ={
+    id: number
+    text: string
+    likescount: number
+}
 let initialState = {
     dialogsData: [
         {id: 1, name : "ivan", url : "https://i.gjcdn.net/data/fireside/posts/23/163/1491663/media/5f7-raxzkzk7.jpg"},
@@ -10,17 +20,18 @@ let initialState = {
         {id: 4, name : "метёдлкин", url : "https://whatsism.com/uploads/posts/2019-04/1556173275_prikolnye_kartinki_na_zastavku_telefona_2_18034955.jpg"},
         {id: 5, name : "злодей", url : "https://p7.hiclipart.com/preview/925/547/763/sticker-whatsapp-emoticon-kik-messenger-emoji-viber.jpg"},
         {id: 6, name : "птица говорун", url : "https://скачать-ватсап-бесплатно.рус/wp-content/uploads/2018/10/avatarka-dlya-vatsap-10.jpg"},
-    ],
+    ] as Array<DialogsType>,
       messagesData: [
         {id: 1, text: "привет", likescount: 47},
         {id: 2, text: "пока", likescount: 147},
         {id: 3, text: "не звони сюда больше", likescount: 470},
         {id: 4, text: "я скучаю", likescount: 7},
         {id: 5, text: "ты негодяй!", likescount: 4}
-    ],
-};
-
-const messagesReducer = (state = initialState, action) => {
+    ] as Array<MessagesType>,
+}
+type InitialStateType = typeof initialState;
+const messagesReducer = (state = initialState,
+                         action: any): InitialStateType => {
     switch(action.type) {
         case ADDMESSAGE:
             return {...state,messagesData: [...state.messagesData, {id: (state.messagesData.length+1),
@@ -36,16 +47,33 @@ const messagesReducer = (state = initialState, action) => {
             return state;
     }
 }
-export const sendNewMessage = (text) => {
+type SendNewMessageType = {
+    type: typeof ADDMESSAGE
+    text: string
+}
+export const sendNewMessage = (text: string): SendNewMessageType => {
     return {type: ADDMESSAGE,text};
 }
-export const deleteMessage = (id) => {
+type DeleteMessageType = {
+    type: typeof DELETEMESSAGE
+    id: number
+}
+export const deleteMessage = (id: number):DeleteMessageType => {
     return {type: DELETEMESSAGE,id};
 }
-export const addNewDialog = (name,url) => {
+type AddNewDialogType = {
+    type: typeof ADDNEWDIALOG,
+    name: string
+    url: string
+}
+export const addNewDialog = (name: string,url: string):AddNewDialogType => {
     return {type: ADDNEWDIALOG,name,url};
 }
-export const deleteDialog = (id) => {
+type DeleteDialogType = {
+    type: typeof DELETEDIALOG
+    id: number
+}
+export const deleteDialog = (id: number): DeleteDialogType => {
     return {type: DELETEDIALOG,id};
 }
 export default messagesReducer;

@@ -1,6 +1,7 @@
 import {APIPersons, APIProfile} from "../api/api";
 import {addError} from "./errorReducer";
 import {getColleague} from "./colleagueReducer";
+import {PersonsType, PhotosType} from "../types/Types";
 
 const SETCOLLEAGUE = "SETCOLLEAGUE",
     SETPERSONSDATA = "SETPERSONSDATA",
@@ -9,15 +10,16 @@ const SETCOLLEAGUE = "SETCOLLEAGUE",
     SETISLOADING = "SETISLOADING",
     COLLEAGUEINPROGRESS = "COLLEAGUEINPROGRESS";
 let initialState = {
-    personsData: [],
-    pageSize: 12,
-    allUsersCount: 0,
-    currentPage: 1,
-    portionPage: 10,
-    ColleagueInProgress: [],
+    personsData: [] as Array<PersonsType>,
+    pageSize: 12 as number,
+    allUsersCount: 0 as number,
+    currentPage: 1 as number,
+    portionPage: 10 as number,
+    ColleagueInProgress: [] as Array<number>, //array persons ids
     isLoading: false
 };
-const personReducer = (state = initialState, action) => {
+type InitialStateType = typeof initialState;
+const personReducer = (state = initialState, action: any): InitialStateType => {
     switch (action.type) {
         case SETCOLLEAGUE:
             return ({
@@ -48,29 +50,59 @@ const personReducer = (state = initialState, action) => {
             return state;
     }
 }
-export const addColleague = (id) => {
+type AddColleagueActionType = {
+    type: typeof SETCOLLEAGUE
+    id: number
+    set: boolean
+}
+export const addColleague = (id: number): AddColleagueActionType => {
     return {type: SETCOLLEAGUE, id: id, set: true};
 }
-export const removeColleague = (id) => {
+type RemoveColleagueActionType = {
+    type: typeof SETCOLLEAGUE
+    id: number
+    set: boolean
+}
+export const removeColleague = (id: number): RemoveColleagueActionType => {
     return {type: SETCOLLEAGUE, id: id, set: false};
 }
-export const setPersonsData = (persons) => {
+type SetPersonsDataActionType = {
+    type: typeof SETPERSONSDATA
+    persons: Array<object>
+}
+export const setPersonsData = (persons: Array<PersonsType>): SetPersonsDataActionType => {
     return {type: SETPERSONSDATA, persons};
 }
-export const setCurrentPage = (currentPage) => {
+type SetCurrentPageActionType = {
+    type: typeof SETCURRENTPAGE
+    currentPage: number
+}
+export const setCurrentPage = (currentPage: number): SetCurrentPageActionType => {
     return {type: SETCURRENTPAGE, currentPage};
 }
-export const setAllUsersCount = (allUsersCount) => {
+type SetAllUsersCountActionType = {
+    type: typeof ALLUSERSCOUNT
+    allUsersCount: number
+}
+export const setAllUsersCount = (allUsersCount: number): SetAllUsersCountActionType => {
     return {type: ALLUSERSCOUNT, allUsersCount};
 }
-export const setIsLoading = (isLoading) => {
+type SetIsLoadingActionType = {
+    type: typeof SETISLOADING
+    isLoading: boolean
+}
+export const setIsLoading = (isLoading: boolean): SetIsLoadingActionType  => {
     return {type: SETISLOADING, isLoading};
 }
-export const setColleagueInProgress = (id) => {
+type SetColleagueInProgressActionType = {
+    type: typeof COLLEAGUEINPROGRESS
+    id: number
+}
+export const setColleagueInProgress = (id: number): SetColleagueInProgressActionType => {
     return {type: COLLEAGUEINPROGRESS, id};
 }
 
-export const getPersons = (currentPage, pageSize) => async (dispatch) => {
+export const getPersons = (currentPage: number, pageSize: number) => async (dispatch: any) => {
     dispatch(setIsLoading(true));
     dispatch(setCurrentPage(currentPage));
     try{
@@ -85,7 +117,7 @@ export const getPersons = (currentPage, pageSize) => async (dispatch) => {
         dispatch(setIsLoading(false));
     }
 }
-export const removeColleagueThunkCreator = (id) => async (dispatch) => {
+export const removeColleagueThunkCreator = (id: number) => async (dispatch: any) => {
     dispatch(setColleagueInProgress(id));
     let response = await APIPersons.removeColleague(id);
     if (response.resultCode === 0) {
@@ -94,7 +126,7 @@ export const removeColleagueThunkCreator = (id) => async (dispatch) => {
         dispatch(getColleague());
     }
 }
-export const addColleagueThunkCreator = (profile) => async (dispatch) => {
+export const addColleagueThunkCreator = (profile: any) => async (dispatch: any) => {
     dispatch(setColleagueInProgress(profile.id));
     let response = await APIPersons.addColleague(profile.id);
     if (response.resultCode === 0) {

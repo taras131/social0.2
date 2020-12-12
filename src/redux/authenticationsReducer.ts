@@ -3,16 +3,18 @@ import {stopSubmit} from "redux-form";
 
 const SETPERSON = "SETPERSON",
     SETCAPTCHAURL = "SETCAPTCHAURL";
+
 let initialState = {
     authenticationsData: {
-        personId: null,
-        email: null,
-        login: null
+        personId: null as null | number,
+        email: null as null | string,
+        login: null as null | string
     },
     isAuthentications: false,
-    captchaURL: null
+    captchaURL: null as null | string
 }
-const authenticationsReducer = (state = initialState, action) => {
+type InitialStatType = typeof initialState
+const authenticationsReducer = (state = initialState, action: any): InitialStatType => {
     switch (action.type) {
         case SETPERSON:
             return {
@@ -28,19 +30,31 @@ const authenticationsReducer = (state = initialState, action) => {
             return state;
     }
 }
-export const setPerson = (personId, email, login, isAuthentications) => {
+type SetPersonActionType ={
+    type: typeof SETPERSON
+    personId: number | null
+    email: string | null
+    login: string | null
+    isAuthentications: boolean
+}
+export const setPerson = (personId: number | null, email: string | null, login: string | null,
+                          isAuthentications: boolean):SetPersonActionType => {
     return {type: SETPERSON, personId, email, login, isAuthentications}
 }
-export const setCaptchaURL = (url) => {
+type SetCaptchaURLAction = {
+    type: typeof SETCAPTCHAURL
+    url: string
+}
+export const setCaptchaURL = (url: string):SetCaptchaURLAction => {
     return {type: SETCAPTCHAURL, url}
 }
-export const getAuthMe = () => async (dispatch) => {
+export const getAuthMe = () => async (dispatch: any) => {
     let response = await APIHeader.getAuthMe();
     if (response.resultCode === 0) {
         dispatch(setPerson(response.data.id, response.data.email, response.data.login, true))
     }
 }
-export const login = (formData) => async (dispatch) => {
+export const login = (formData: any) => async (dispatch: any) => {
     let response = await APIHeader.login(formData);
     console.log(response.data)
     if (response.data.resultCode === 0) {
@@ -53,13 +67,13 @@ export const login = (formData) => async (dispatch) => {
     }
 }
 
-export const loginOut = () => async (dispatch) => {
+export const loginOut = () => async (dispatch: any) => {
     let response = await APIHeader.loginOut();
     if (response.data.resultCode === 0) {
         dispatch(setPerson(null, null, null, false));
     }
 }
-export const getCaptchaURL = () => async (dispatch) => {
+export const getCaptchaURL = () => async (dispatch: any) => {
     let response = await APISecurity.getCapchaURL();
     const captchaURL = response.data.url;
     dispatch(setCaptchaURL(captchaURL));

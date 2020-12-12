@@ -1,6 +1,7 @@
 import {APIProfile} from "../api/api";
 import {stopSubmit} from "redux-form";
 import {addError} from "./errorReducer";
+import {PhotosType, PostDataType, ProfileType} from "../types/Types";
 
 const ADDPOST = "ADDPOST",
     SETPROFILE = "SETPROFILE",
@@ -9,35 +10,31 @@ const ADDPOST = "ADDPOST",
     SETPROFILEPHOTOSUCCES = "SETPROFILEPHOTOSUCCES",
     ISPROFILELOADING = "ISPROFILELOADING",
     SETPROFILEEDITMODE = "SETPROFILEEDITMODE";
+
 let initialState = {
     postData: [
-        {id: 1, name: "Taras", text: "Это мой первый пост", likescount: 200},
-        {id: 2, name: "Taras", text: "Это мой второй пост", likescount: 700},
-        {id: 3, name: "Taras", text: "это я запостил из индекс js, прокинув пропс через Route!!! ", likescount: 500}
-    ],
-    profile: null,
-    status: "",
+        {id: 1, text: "Это мой первый пост", likescount: 200},
+        {id: 2, text: "Это мой второй пост", likescount: 700},
+        {id: 3, text: "это я запостил из индекс js, прокинув пропс через Route!!! ", likescount: 500}
+    ] as Array<PostDataType>,
+    profile: null as ProfileType | null,
+    status: "" as string,
     isProfileLoading: false,
     isEditMode: false
 }
-
-const profileReducer = (state = initialState, action) => {
-    let temporaryState;
+type InitialStateType = typeof initialState
+const profileReducer = (state = initialState, action: any): InitialStateType => {
     switch (action.type) {
         case ADDPOST:
-            temporaryState = {
-                ...state,
-                postData: [...state.postData, {id: 11, text: action.text, likescount: 0}]
-            };
-            return temporaryState;
+            return {...state,postData: [...state.postData, {id: 11, text: action.text, likescount: 0}]};
         case DELETEPOST:
-            return {state, postData: state.postData.filter(item => item.id != action.postId)}
+            return {...state, postData: state.postData.filter(item => item.id != action.postId)}
         case SETPROFILE:
             return {...state, profile: action.profile}
         case SETSTATUS:
             return {...state, status: action.status}
         case SETPROFILEPHOTOSUCCES:
-            return {...state, profile: {...state.profile, photos: action.photos}}
+            return {...state, profile: {...state.profile, photos: action.photos} as ProfileType}
         case ISPROFILELOADING:
             return {...state, isProfileLoading: action.isProfileLoading}
         case SETPROFILEEDITMODE:
@@ -46,28 +43,56 @@ const profileReducer = (state = initialState, action) => {
             return state;
     }
 }
-export const addPost = (text) => {
+type AddPostActionType = {
+    type: typeof ADDPOST
+    text: string
+}
+export const addPost = (text: string): AddPostActionType => {
     return {type: ADDPOST, text};
 }
-export const deletePost = (postId) => {
+type DeletePostActionType = {
+    type: typeof DELETEPOST
+    postId: number
+}
+export const deletePost = (postId: number): DeletePostActionType => {
     return {type: DELETEPOST, postId};
 }
-export const setProfile = (profile) => {
+type SetProfileActionType = {
+    type: typeof SETPROFILE
+    profile: ProfileType
+}
+export const setProfile = (profile: ProfileType): SetProfileActionType => {
     return {type: SETPROFILE, profile};
 }
-export const setStatus = (status) => {
+type SetStatusActionType = {
+    type: typeof SETSTATUS
+    status: string
+}
+export const setStatus = (status: string): SetStatusActionType => {
     return {type: SETSTATUS, status}
 }
-export const setProfilePhotoSucces = (photos) => {
+type SetProfilePhotoSuccesActionType = {
+    type: typeof SETPROFILEPHOTOSUCCES
+    photos: PhotosType
+}
+export const setProfilePhotoSucces = (photos: PhotosType): SetProfilePhotoSuccesActionType => {
     return {type: SETPROFILEPHOTOSUCCES, photos}
 }
-export const setProfileLoading = (isProfileLoading) => {
+type SetProfileLoadingActionType = {
+    type: typeof ISPROFILELOADING
+    isProfileLoading: boolean
+}
+export const setProfileLoading = (isProfileLoading: boolean): SetProfileLoadingActionType => {
     return {type: ISPROFILELOADING, isProfileLoading}
 }
-export const setProfileEditMode = (isEditMode) => {
+type SetProfileEditModeActionType = {
+    type: typeof SETPROFILEEDITMODE
+    isEditMode: boolean
+}
+export const setProfileEditMode = (isEditMode: boolean): SetProfileEditModeActionType => {
     return {type: SETPROFILEEDITMODE, isEditMode}
 }
-export const getProfile = (id) => async (dispatch) => {
+export const getProfile = (id: number) => async (dispatch: any) => {
     dispatch(setProfileLoading(true));
     try {
         let response = await APIProfile.getProfile(id);
@@ -78,7 +103,7 @@ export const getProfile = (id) => async (dispatch) => {
         dispatch(addError());
     }
 }
-export const getMyStatus = (id) => async (dispatch) => {
+export const getMyStatus = (id: number) => async (dispatch: any) => {
     dispatch(setProfileLoading(true));
     try {
         let response = await APIProfile.getMyStatusAPI(id);
@@ -89,7 +114,7 @@ export const getMyStatus = (id) => async (dispatch) => {
         dispatch(setProfileLoading(false));
     }
 }
-export const updateMyStatus = (status) => async (dispatch) => {
+export const updateMyStatus = (status: string) => async (dispatch: any) => {
     dispatch(setProfileLoading(true))
     try {
         let response = await APIProfile.updateMyStatus(status);
@@ -102,7 +127,7 @@ export const updateMyStatus = (status) => async (dispatch) => {
         dispatch(setProfileLoading(false))
     }
 }
-export const setProfilePhoto = (file) => async (dispatch) => {
+export const setProfilePhoto = (file: any) => async (dispatch: any) => {
     dispatch(setProfileLoading(true))
     try {
         let response = await APIProfile.setProfilePhoto(file);
@@ -115,7 +140,7 @@ export const setProfilePhoto = (file) => async (dispatch) => {
         dispatch(setProfileLoading(false))
     }
 }
-export const updateProfile = (formData) => async (dispatch, getState) => {
+export const updateProfile = (formData: ProfileType) => async (dispatch: any, getState: any) => {
     const id = getState().authenticationsInformation.authenticationsData.personId;
     dispatch(setProfileLoading(true));
     try {
