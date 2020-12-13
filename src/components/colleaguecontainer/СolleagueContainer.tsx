@@ -1,16 +1,22 @@
 import {connect} from "react-redux";
-import React from "react";
+import React, {FC} from "react";
 import {removeColleagueThunkCreator} from "../../redux/personsReducers";
 import Сolleagues from "./Сolleagues";
+import {PersonsType} from "../../types/Types";
+import {AppStateType} from "../../redux/reduxStore";
 
-const СolleagueContainer =(props)=>{
+type PropsType = {
+    colleagueData: Array<PersonsType>
+    removeColleagueThunkCreator: (id:number) => void
+}
+const СolleagueContainer: FC <PropsType> =(props)=>{
     return(
         <div>
             <Сolleagues {...props}/>
         </div>
     )
 }
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStateType) => {
     return {
         colleagueData: state.colleagueInformation.colleagueData
     }

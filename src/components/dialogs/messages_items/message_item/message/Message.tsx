@@ -1,10 +1,12 @@
-import React from "react";
+import React, {FC} from "react";
 import style from "../Message_item.module.css";
-
-const Message = (props) => {
+type PropsType = {
+    text: string
+}
+const Message: FC <PropsType> = ({text}) => {
     return (
         <div className={style.messages_item}>
-            {props.text}
+            {text}
         </div>
     )
 }

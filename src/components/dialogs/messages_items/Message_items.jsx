@@ -1,15 +1,15 @@
 import style from "./Message_items.module.css";
 import NewmessageContainer from "./newmessage/NewmessageContainer";
 import Message_itemContainer from "./message_item/Message_itemContainer";
-import React from "react";
+import React, {FC} from "react";
+type PropsTypes = {
 
-const Message_items = (props) =>{
+}
+const Message_items: FC<PropsTypes> = (props) => {
     return (
-        <div className = {style.messages}>
-            <div>
-             <Message_itemContainer />
-            </div>
-           <NewmessageContainer />
+        <div className={style.messages}>
+            <Message_itemContainer />
+            <NewmessageContainer />
         </div>
     );
 }

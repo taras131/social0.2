@@ -33,3 +33,13 @@ export type PersonsType = {
     followed: boolean
     uniqueUrlName: null
 }
+
+export type DialogsType = {
+    id: number
+    name: string
+    url: string
+}
+export type MessagesType ={
+    id: number
+    text: string
+}

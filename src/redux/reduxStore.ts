@@ -1,5 +1,5 @@
 import {createStore, combineReducers, applyMiddleware} from "redux";
-import messagesReducer from "./messagesReducer";
+import dialogsReducer from "./dialogsReducer";
 import profileReducer from "./profileReducer";
 import personReducer from "./personsReducers";
 import authenticationsReducer from "./authenticationsReducer";
@@ -9,9 +9,9 @@ import appReducer from "./appReducer";
 import errorReducer from "./errorReducer";
 import colleagueReducer from "./colleagueReducer";
 
-let redusersList = combineReducers({
+let reducersList = combineReducers({
     profileInformation: profileReducer,
-    messagesInformation: messagesReducer,
+    dialogsInformation: dialogsReducer,
     personsInformation: personReducer,
     appInformation: appReducer,
     authenticationsInformation: authenticationsReducer,
@@ -19,8 +19,8 @@ let redusersList = combineReducers({
     colleagueInformation: colleagueReducer,
     form: formReducer
 });
-type RedusersListType = typeof redusersList
-export type AppStateType = ReturnType<RedusersListType>
-let store = createStore(redusersList, applyMiddleware(thunkMiddleware));
+type ReducersListType = typeof reducersList
+export type AppStateType = ReturnType<ReducersListType>
+let store = createStore(reducersList, applyMiddleware(thunkMiddleware));
 
 export default store;

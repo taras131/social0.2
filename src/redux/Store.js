@@ -1,4 +1,4 @@
-import messagesReducer from "./messagesReducer";
+import dialogsReducer from "./dialogsReducer";
 import profileReducer from "./profileReducer";
 import sidebarReducer from "./sidebarReducer";
 
@@ -46,7 +46,7 @@ let store = {
 	},
 	dispatch(action) {
 		this._state.profileInformation = profileReducer(this._state.profileInformation, action);
-		this._state.messagesInformation =  messagesReducer(this._state.messagesInformation,action);
+		this._state.messagesInformation =  dialogsReducer(this._state.messagesInformation,action);
 		this._state.sitebarInformation =  sidebarReducer(this._state.sitebarInformation,action);
 		this._reRenderDOM(this._state);
 	},

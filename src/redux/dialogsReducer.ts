@@ -1,17 +1,10 @@
+import {DialogsType, MessagesType} from "../types/Types";
+
 const ADDMESSAGE = "ADDMESSAGE",
     DELETEMESSAGE = "DELETEMESSAGE",
     ADDNEWDIALOG = "ADDNEWDIALOG",
     DELETEDIALOG = "DELETEDIALOG";
-type DialogsType = {
-    id: number
-    name: string
-    url: string
-}
-type MessagesType ={
-    id: number
-    text: string
-    likescount: number
-}
+
 let initialState = {
     dialogsData: [
         {id: 1, name : "ivan", url : "https://i.gjcdn.net/data/fireside/posts/23/163/1491663/media/5f7-raxzkzk7.jpg"},
@@ -22,20 +15,20 @@ let initialState = {
         {id: 6, name : "птица говорун", url : "https://скачать-ватсап-бесплатно.рус/wp-content/uploads/2018/10/avatarka-dlya-vatsap-10.jpg"},
     ] as Array<DialogsType>,
       messagesData: [
-        {id: 1, text: "привет", likescount: 47},
-        {id: 2, text: "пока", likescount: 147},
-        {id: 3, text: "не звони сюда больше", likescount: 470},
-        {id: 4, text: "я скучаю", likescount: 7},
-        {id: 5, text: "ты негодяй!", likescount: 4}
+        {id: 1, text: "привет"},
+        {id: 2, text: "пока"},
+        {id: 3, text: "не звони сюда больше"},
+        {id: 4, text: "я скучаю"},
+        {id: 5, text: "ты негодяй!"}
     ] as Array<MessagesType>,
 }
 type InitialStateType = typeof initialState;
-const messagesReducer = (state = initialState,
-                         action: any): InitialStateType => {
+const dialogsReducer = (state = initialState,
+                        action: any): InitialStateType => {
     switch(action.type) {
         case ADDMESSAGE:
             return {...state,messagesData: [...state.messagesData, {id: (state.messagesData.length+1),
-                    text: action.text, likescount: 0}] };
+                    text: action.text}] };
         case DELETEMESSAGE:
             return {...state,messagesData: state.messagesData.filter((item)=>item.id !== action.id)};
         case ADDNEWDIALOG:
@@ -76,4 +69,4 @@ type DeleteDialogType = {
 export const deleteDialog = (id: number): DeleteDialogType => {
     return {type: DELETEDIALOG,id};
 }
-export default messagesReducer;
+export default dialogsReducer;

@@ -1,20 +1,25 @@
 import anonimavatar from "../../../img/anonimavatar.jpg";
 import {NavLink} from "react-router-dom";
-import React from "react";
+import React, {FC} from "react";
 import style from "./СolleagueItem.module.css"
+import {PersonsType} from "../../../types/Types";
 
-const ColleagueItem = (props) => {
+type PropsType = {
+    person: PersonsType
+    removeColleagueThunkCreator: (id:number) => void
+}
+
+const ColleagueItem: FC<PropsType> = ({person,removeColleagueThunkCreator}) => {
     return (
-        <NavLink key={props.person.id} disabled={true} className={style.colleagueitemwrapper}
-                 to={"/profile/" + props.person.id}>
+        <NavLink key={person.id} className={style.colleagueitemwrapper} to={"/profile/" + person.id}>
             <div className={style.avadiscripyionblok}>
                     <div>
-                        <img src={props.person.photos.small != null ? props.person.photos.small
+                        <img src={person.photos.small != null ? person.photos.small
                             : anonimavatar}/>
                     </div>
                     <div className={style.itemdiscription}>
                         <div></div>
-                        <div>Фамилия: {props.person.name}</div>
+                        <div>Фамилия: {person.name}</div>
                         <div>Страна:</div>
                         <div>Город:</div>
                     </div>
@@ -22,7 +27,7 @@ const ColleagueItem = (props) => {
 <div className={style.buttonblok}>
     <button onClick={(e) => {
         e.preventDefault();
-        props.removeColleagueThunkCreator(props.person.id)
+        removeColleagueThunkCreator(person.id)
     }}><b>Отставить</b>
     </button>
     <button className={style.buttonmessage}><b>Написать</b></button>

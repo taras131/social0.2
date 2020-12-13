@@ -1,4 +1,4 @@
-import messagesReducer, {addNewDialog, deleteDialog, deleteMessage, sendNewMessage} from "./messagesReducer";
+import dialogsReducer, {addNewDialog, deleteDialog, deleteMessage, sendNewMessage} from "./dialogsReducer";
 
 let initialState = {
     dialogsData: [
@@ -19,21 +19,21 @@ let initialState = {
 };
 it(`new message should be added`,() =>{
     let action = sendNewMessage(`palich`);
-    let newState = messagesReducer(initialState,action)
+    let newState = dialogsReducer(initialState,action)
     expect(newState.messagesData.length).toBe(6);
 });
 it(`message should be delete`,() =>{
     let action = deleteMessage(3);
-    let newState = messagesReducer(initialState,action)
+    let newState = dialogsReducer(initialState,action)
     expect(newState.messagesData.length).toBe(4);
 });
 it(`new dialog should be added`,() =>{
     let action = addNewDialog(`palich`,"https://скачать-ватсап-бесплатно.рус/wp-content/uploads/2018/10/avatarka-dlya-vatsap-10.jpg");
-    let newState = messagesReducer(initialState,action)
+    let newState = dialogsReducer(initialState,action)
     expect(newState.dialogsData.length).toBe(7);
 });
 it(`dialog should be delete`,() =>{
     let action = deleteDialog(3);
-    let newState = messagesReducer(initialState,action)
+    let newState = dialogsReducer(initialState,action)
     expect(newState.dialogsData.length).toBe(5);
 });
