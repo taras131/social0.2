@@ -19,6 +19,8 @@ let redusersList = combineReducers({
     colleagueInformation: colleagueReducer,
     form: formReducer
 });
+type RedusersListType = typeof redusersList
+export type AppStateType = ReturnType<RedusersListType>
 let store = createStore(redusersList, applyMiddleware(thunkMiddleware));
 
 export default store;

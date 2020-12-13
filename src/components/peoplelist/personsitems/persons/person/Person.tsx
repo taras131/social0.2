@@ -2,37 +2,41 @@ import style from "../Persons.module.css";
 import React from "react";
 import {NavLink} from "react-router-dom";
 import anonimavatar from"../../../../../img/anonimavatar.jpg"
+import {PersonsType, ProfileType} from "../../../../../types/Types";
 
-const Person = (props) => {
-    return (<NavLink disabled={true}
-                     className={style.person} to={"/profile/" + props.person.id}>
-            <div key={props.person.id}>
+type PropsType = {
+    person : PersonsType
+    ColleagueInProgress: Array<number>
+    removeColleagueThunkCreator: (id: number) => void
+    addColleagueThunkCreator: (person : PersonsType) => void
+}
+const Person: React.FC<PropsType> = ({person,ColleagueInProgress,removeColleagueThunkCreator, addColleagueThunkCreator}) => {
+    return (<NavLink className={style.person} to={"/profile/" + person.id}>
+            <div key={person.id}>
                 <div>
                     <div className={style.personinformation}>
                         <div>
-                            <img src={props.person.photos.small != null ? props.person.photos.small
+                            <img src={person.photos.small != null ? person.photos.small
                                 : anonimavatar}/>
                         </div>
                         <div className={style.data}>
-                            <div></div>
-                            <div>Фамилия: {props.person.name}</div>
+                            <div>Фамилия: {person.name}</div>
                             <div>Страна:</div>
                             <div>Город:</div>
                         </div>
                     </div>
-                    
                 </div>
                 <div className={style.button}>
-                    {props.person.followed
-                        ? <button disabled={props.ColleagueInProgress.some(id => id === props.person.id)}
+                    {person.followed
+                        ? <button disabled={ColleagueInProgress.some(id => id === person.id)}
                                   className={style.buttonremove} onClick={(e) => {
                             e.preventDefault();
-                            props.removeColleagueThunkCreator(props.person.id)
+                            removeColleagueThunkCreator(person.id)
                         }}>выгнать</button>
-                        : <button disabled={props.ColleagueInProgress.some(id => id === props.person.id)}
+                        : <button disabled={ColleagueInProgress.some(id => id === person.id)}
                                   className={style.buttonadd} onClick={(e) => {
                             e.preventDefault();
-                            props.addColleagueThunkCreator(props.person);
+                            addColleagueThunkCreator(person);
                         }}>в коллеги</button>}
                 </div>
             </div>

@@ -5,7 +5,6 @@ import Navigation from "./components/navigation/Navigation.jsx";
 import News from "./components/news/News";
 import Music from "./components/music/Music";
 import Setting from "./components/setting/Setting"
-import PeopleList from "./components/peoplelist/PeopleList";
 import {connect, Provider} from "react-redux";
 import {getAuthMe} from "./redux/authenticationsReducer";
 import {Redirect, Route} from "react-router-dom";
@@ -15,8 +14,9 @@ import {initialezeApp} from "./redux/appReducer";
 import Preloader from "./components/common/preloader/preloader";
 import store from "./redux/reduxStore";
 import withSuspenseHOC from "./hoc/witchSuspenseHOC";
-import ProfileContainer from "./components/profile/ProfileContainer";
 import СolleagueContainer from "./components/colleaguecontainer/СolleagueContainer";
+import PersonsItemsContainer from "./components/peoplelist/PersonsItemsContainer";
+import ProfileContainer from "./components/profile/ProfileContainer";
 
 const Dialogs = React.lazy(() => import("./components/dialogs/Dialogs"));
 const Login = React.lazy(() => import("./components/login/Login"));
@@ -43,7 +43,7 @@ class App extends React.Component {
                 <div className="app_wrapper_content">
                     <Route exact path="" render={() => <Redirect to="/profile"/>}/>
                     <Route path="/dialogs" render={withSuspenseHOC(Dialogs)}/>
-                    <Route path="/people" render={() => <PeopleList/>}/>
+                    <Route path="/people" render={() => <PersonsItemsContainer />}/>
                     <Route path="/news" component={News}/>
                     <Route path="/music" component={Music}/>
                     <Route path="/setting" component={Setting}/>

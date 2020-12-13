@@ -1,7 +1,7 @@
 import {APIPersons, APIProfile} from "../api/api";
 import {addError} from "./errorReducer";
 import {getColleague} from "./colleagueReducer";
-import {PersonsType, PhotosType} from "../types/Types";
+import {PersonsType} from "../types/Types";
 
 const SETCOLLEAGUE = "SETCOLLEAGUE",
     SETPERSONSDATA = "SETPERSONSDATA",
@@ -109,6 +109,7 @@ export const getPersons = (currentPage: number, pageSize: number) => async (disp
         let response = await APIPersons.getPersons(currentPage, pageSize);
         dispatch(setPersonsData(response.data.items));
         dispatch(setAllUsersCount(response.data.totalCount));
+        console.log(response.data.items)
     }
     catch (e) {
         dispatch(addError());

@@ -11,14 +11,15 @@ export const APIPersons = {
     getPersons(currentPage, pageSize) {
         return instansAxios.get(`users?page=${currentPage}&count=${pageSize}`)
     },
-    removeColleague(id) {
-        return instansAxios.delete(`follow/${id}`)
+    removeColleague(userId) {
+        console.log(userId)
+        return instansAxios.delete(`follow/${userId}`)
             .then(response => {
                 return response.data
             })
     },
-    addColleague(id) {
-        return instansAxios.post(`follow/${id}`)
+    addColleague(userId) {
+        return instansAxios.post(`follow/${userId}`)
             .then(response => {
                 return response.data
             })
