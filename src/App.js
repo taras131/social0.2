@@ -1,6 +1,6 @@
 import React from "react";
 import "./css/App.css";
-import Header from "./components/header/Header.jsx";
+import Header from "./components/header/Header.tsx";
 import Navigation from "./components/navigation/Navigation.jsx";
 import News from "./components/news/News";
 import Music from "./components/music/Music";

@@ -1,19 +1,27 @@
 import {Field, reduxForm} from "redux-form";
-import React from "react";
+import React, {FC} from "react";
 import {TEXTAREAINPUT} from "../../common/formcontrol/FormControl";
 import {maxLength, requiredField} from "../../../utils/validations/validations";
 import style from "./Login.module.css";
+
 const maxLength30 = maxLength(30);
 const Input = TEXTAREAINPUT("input");
-const LoginForm = (props) => {
-    const loginOut = () => {
-        props.loginOut();
+type PropsType = {
+    isAuthentications: boolean
+    captchaURL: string
+    error: string
+    handleSubmit: any
+    loginOut: () => void
+}
+const LoginForm: FC<PropsType> = ({loginOut, handleSubmit, error, captchaURL,isAuthentications}) => {
+    const out = () => {
+        loginOut();
     }
     return(
         <div>
-            {props.isAuthentications
-                ?   <button onClick={loginOut}>Выйти</button>
-                :<form onSubmit={props.handleSubmit}>
+            {isAuthentications
+                ?   <button onClick={out}>Выйти</button>
+                :<form onSubmit={handleSubmit}>
                     <div className={style.autchitem}>
                         <Field placeholder={"Логин"} component = {Input} name={"login"}
                                validate = {[requiredField, maxLength30]}/>
@@ -26,11 +34,11 @@ const LoginForm = (props) => {
                         <Field type={"checkbox"} component = {"input"} name={"rememberMe"}/> Запомни меня
                     </div>
                     <div className={style.error}>
-                        {props.error}
+                        {error}
                     </div>
-                    {props.captchaURL &&
+                    {captchaURL &&
                     <div>
-                        <img src={props.captchaURL} alt="props.captchaURL"/>
+                        <img src={captchaURL} alt="props.captchaURL"/>
                         <Field placeholder={"Введите символы"} component = {Input} name={"captcha"}
                                validate = {[requiredField]}/>
                     </div>}

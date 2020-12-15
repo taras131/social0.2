@@ -15,9 +15,9 @@ class Sidebar extends Component {
             return <Sidebaritem key={item.id} name={item.name} img={item.photos.small} id={item.id}/>
         });
         let limit15sidebarElements = sidebarElements.filter((item, index) => index < 15)
-        if (this.props.isLoadingcolleagueReducer) {
-            return <Preloader/>
-        }
+      //  if (this.props.isLoadingcolleagueReducer) {
+      //      return <Preloader/>
+      //  }
         return (
             <div className={style.sidebar}>
                 <div>Коллеги</div>

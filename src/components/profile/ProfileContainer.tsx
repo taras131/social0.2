@@ -14,6 +14,9 @@ import AuthenticationRedirectHOC from "../../hoc/AuthenticationRedirectHOC";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 
+type PropsType = {
+
+}
 class ProfileContainer extends React.Component {
     updateProfile() {
         let id = this.props.match.params.personId;

@@ -1,10 +1,14 @@
 import style from "./Newpost.module.css";
 import NewPostForm from "./newpostform/NewPostForm";
 import {reset} from "redux-form";
+import {FC} from "react";
 
-const NewPost = (props) => {
-    const onSubmit = (formData, dispatch) => {
-        props.addPost(formData.inputPost);
+type PropsType = {
+    addPost: (inputPost: string)=> void
+}
+const NewPost: FC<PropsType> = ({addPost}) => {
+    const onSubmit = (formData: any, dispatch: any) => {
+        addPost(formData.inputPost);
         dispatch(reset("addPost"));
     }
     return (
