@@ -1,7 +1,9 @@
 import {APIProfile} from "../api/api";
 import {stopSubmit} from "redux-form";
-import {addError} from "./errorReducer";
+import {addError, AddErrorActionType} from "./errorReducer";
 import {PhotosType, PostDataType, ProfileType} from "../types/Types";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "./reduxStore";
 
 const ADDPOST = "ADDPOST",
     SETPROFILE = "SETPROFILE",
@@ -23,7 +25,7 @@ let initialState = {
     isEditMode: false
 }
 type InitialStateType = typeof initialState
-const profileReducer = (state = initialState, action: any): InitialStateType => {
+const profileReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
         case ADDPOST:
             return {...state,postData: [...state.postData, {id: 11, text: action.text, likescount: 0}]};
@@ -43,6 +45,8 @@ const profileReducer = (state = initialState, action: any): InitialStateType => 
             return state;
     }
 }
+type ActionsTypes = AddPostActionType | DeletePostActionType | SetProfileActionType | SetStatusActionType |
+    SetProfilePhotoSuccesActionType | SetProfileLoadingActionType | AddErrorActionType | SetProfileEditModeActionType
 type AddPostActionType = {
     type: typeof ADDPOST
     text: string
@@ -92,7 +96,8 @@ type SetProfileEditModeActionType = {
 export const setProfileEditMode = (isEditMode: boolean): SetProfileEditModeActionType => {
     return {type: SETPROFILEEDITMODE, isEditMode}
 }
-export const getProfile = (id: number) => async (dispatch: any) => {
+type ThunkActionType = ThunkAction<Promise<void>, AppStateType, any, ActionsTypes>
+export const getProfile = (id: number): ThunkActionType => async (dispatch) => {
     dispatch(setProfileLoading(true));
     try {
         let response = await APIProfile.getProfile(id);
@@ -103,7 +108,7 @@ export const getProfile = (id: number) => async (dispatch: any) => {
         dispatch(addError());
     }
 }
-export const getMyStatus = (id: number) => async (dispatch: any) => {
+export const getMyStatus = (id: number): ThunkActionType => async (dispatch) => {
     dispatch(setProfileLoading(true));
     try {
         let response = await APIProfile.getMyStatusAPI(id);
@@ -114,7 +119,7 @@ export const getMyStatus = (id: number) => async (dispatch: any) => {
         dispatch(setProfileLoading(false));
     }
 }
-export const updateMyStatus = (status: string) => async (dispatch: any) => {
+export const updateMyStatus = (status: string): ThunkActionType => async (dispatch) => {
     dispatch(setProfileLoading(true))
     try {
         let response = await APIProfile.updateMyStatus(status);
@@ -127,7 +132,7 @@ export const updateMyStatus = (status: string) => async (dispatch: any) => {
         dispatch(setProfileLoading(false))
     }
 }
-export const setProfilePhoto = (file: any) => async (dispatch: any) => {
+export const setProfilePhoto = (file: any): ThunkActionType => async (dispatch) => {
     dispatch(setProfileLoading(true))
     try {
         let response = await APIProfile.setProfilePhoto(file);
@@ -140,7 +145,8 @@ export const setProfilePhoto = (file: any) => async (dispatch: any) => {
         dispatch(setProfileLoading(false))
     }
 }
-export const updateProfile = (formData: ProfileType) => async (dispatch: any, getState: any) => {
+type GetStateType = () => AppStateType
+export const updateProfile = (formData: ProfileType): ThunkActionType => async (dispatch, getState: GetStateType) => {
     const id = getState().authenticationsInformation.authenticationsData.personId;
     dispatch(setProfileLoading(true));
     try {

@@ -6,7 +6,7 @@ const initialState = {
     isError: false
 }
 type InitialStateType = typeof initialState
-const errorReducer = (state = initialState, action: any): InitialStateType => {
+const errorReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
         case ADDERROR:
             return {...state, isError: true}
@@ -16,8 +16,8 @@ const errorReducer = (state = initialState, action: any): InitialStateType => {
             return state
     }
 }
-export default errorReducer;
-type AddErrorActionType = {
+type ActionsTypes = AddErrorActionType | RemoveErrorActionType
+export type AddErrorActionType = {
     type: typeof ADDERROR
 }
 export const addError = (): AddErrorActionType => {
@@ -29,3 +29,5 @@ type RemoveErrorActionType = {
 export const removeError = (): RemoveErrorActionType => {
     return {type: REMOVEERROR}
 }
+
+export default errorReducer;

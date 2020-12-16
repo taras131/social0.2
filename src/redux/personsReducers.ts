@@ -2,6 +2,9 @@ import {APIPersons, APIProfile} from "../api/api";
 import {addError} from "./errorReducer";
 import {getColleague} from "./colleagueReducer";
 import {PersonsType} from "../types/Types";
+import {AppStateType} from "./reduxStore";
+import {Dispatch} from "redux";
+import {ThunkAction} from "redux-thunk";
 
 const SETCOLLEAGUE = "SETCOLLEAGUE",
     SETPERSONSDATA = "SETPERSONSDATA",
@@ -19,7 +22,7 @@ let initialState = {
     isLoading: false
 };
 type InitialStateType = typeof initialState;
-const personReducer = (state = initialState, action: any): InitialStateType => {
+const personReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
         case SETCOLLEAGUE:
             return ({
@@ -50,6 +53,8 @@ const personReducer = (state = initialState, action: any): InitialStateType => {
             return state;
     }
 }
+type ActionsTypes = AddColleagueActionType | RemoveColleagueActionType | SetPersonsDataActionType |
+    SetCurrentPageActionType | SetAllUsersCountActionType | SetIsLoadingActionType | SetColleagueInProgressActionType
 type AddColleagueActionType = {
     type: typeof SETCOLLEAGUE
     id: number
@@ -101,8 +106,10 @@ type SetColleagueInProgressActionType = {
 export const setColleagueInProgress = (id: number): SetColleagueInProgressActionType => {
     return {type: COLLEAGUEINPROGRESS, id};
 }
-
-export const getPersons = (currentPage: number, pageSize: number) => async (dispatch: any) => {
+type ThunkActionType = ThunkAction<Promise<void>, AppStateType, any, ActionsTypes>
+//type GetStateType = () => AppStateType
+//type DispatchType = Dispatch<ActionsTypes>
+export const getPersons = (currentPage: number, pageSize: number): ThunkActionType  => async (dispatch) => {
     dispatch(setIsLoading(true));
     dispatch(setCurrentPage(currentPage));
     try{
@@ -118,7 +125,7 @@ export const getPersons = (currentPage: number, pageSize: number) => async (disp
         dispatch(setIsLoading(false));
     }
 }
-export const removeColleagueThunkCreator = (id: number) => async (dispatch: any) => {
+export const removeColleagueThunkCreator = (id: number): ThunkActionType => async (dispatch) => {
     dispatch(setColleagueInProgress(id));
     let response = await APIPersons.removeColleague(id);
     if (response.resultCode === 0) {
@@ -127,7 +134,7 @@ export const removeColleagueThunkCreator = (id: number) => async (dispatch: any)
         dispatch(getColleague());
     }
 }
-export const addColleagueThunkCreator = (profile: any) => async (dispatch: any) => {
+export const addColleagueThunkCreator = (profile: PersonsType): ThunkActionType => async (dispatch) => {
     dispatch(setColleagueInProgress(profile.id));
     let response = await APIPersons.addColleague(profile.id);
     if (response.resultCode === 0) {

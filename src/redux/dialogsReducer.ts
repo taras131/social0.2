@@ -24,7 +24,7 @@ let initialState = {
 }
 type InitialStateType = typeof initialState;
 const dialogsReducer = (state = initialState,
-                        action: any): InitialStateType => {
+                        action: ActionsType): InitialStateType => {
     switch(action.type) {
         case ADDMESSAGE:
             return {...state,messagesData: [...state.messagesData, {id: (state.messagesData.length+1),
@@ -40,6 +40,7 @@ const dialogsReducer = (state = initialState,
             return state;
     }
 }
+type ActionsType = SendNewMessageType | DeleteMessageType | AddNewDialogType | DeleteDialogType
 type SendNewMessageType = {
     type: typeof ADDMESSAGE
     text: string
