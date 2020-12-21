@@ -39,8 +39,8 @@ type SetIsLoandingColleagueReduserActionType = {
 export const setIsLoandingColleagueReduser = (value: boolean): SetIsLoandingColleagueReduserActionType => {
     return {type: COLLEAGUEREDUSER_SETISLOANDING, value}
 }
-type ThunkActionType = ThunkAction<Promise<void>, AppStateType, any, ActionsTypes>
-export const getColleague = (): ThunkActionType => async (dispatch) => {
+export type GetColleagueThunkActionType = ThunkAction<Promise<void>, AppStateType, any, ActionsTypes>
+export const getColleague = (): GetColleagueThunkActionType => async (dispatch) => {
     dispatch(setIsLoandingColleagueReduser(true));
         let response = await APIColleague.getColleague();
         dispatch(setColleague(response.data.items));

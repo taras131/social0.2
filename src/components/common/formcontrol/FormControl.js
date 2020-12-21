@@ -1,5 +1,5 @@
 import style from  "./FormControl.module.css";
-import React from "react";
+import React, {FC} from "react";
 
 export const TEXTAREAINPUT = (selector) => ({input, meta, ...props}) => {
     const showError = meta.touched && meta.error;

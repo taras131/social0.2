@@ -1,9 +1,8 @@
 import {APIPersons, APIProfile} from "../api/api";
-import {addError} from "./errorReducer";
-import {getColleague} from "./colleagueReducer";
+import {addError, AddErrorActionType} from "./errorReducer";
+import {getColleague, GetColleagueThunkActionType} from "./colleagueReducer";
 import {PersonsType} from "../types/Types";
 import {AppStateType} from "./reduxStore";
-import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
 
 const SETCOLLEAGUE = "SETCOLLEAGUE",
@@ -35,7 +34,7 @@ const personReducer = (state = initialState, action: ActionsTypes): InitialState
                 })
             })
         case SETPERSONSDATA:
-            return {...state, personsData: [...action.persons]}
+            return {...state, personsData: action.persons}
         case SETCURRENTPAGE:
             return {...state, currentPage: action.currentPage}
         case ALLUSERSCOUNT:
@@ -54,7 +53,8 @@ const personReducer = (state = initialState, action: ActionsTypes): InitialState
     }
 }
 type ActionsTypes = AddColleagueActionType | RemoveColleagueActionType | SetPersonsDataActionType |
-    SetCurrentPageActionType | SetAllUsersCountActionType | SetIsLoadingActionType | SetColleagueInProgressActionType
+    SetCurrentPageActionType | SetAllUsersCountActionType | SetIsLoadingActionType |
+    SetColleagueInProgressActionType | AddErrorActionType
 type AddColleagueActionType = {
     type: typeof SETCOLLEAGUE
     id: number
@@ -73,7 +73,7 @@ export const removeColleague = (id: number): RemoveColleagueActionType => {
 }
 type SetPersonsDataActionType = {
     type: typeof SETPERSONSDATA
-    persons: Array<object>
+    persons: Array<PersonsType>
 }
 export const setPersonsData = (persons: Array<PersonsType>): SetPersonsDataActionType => {
     return {type: SETPERSONSDATA, persons};
@@ -140,7 +140,7 @@ export const addColleagueThunkCreator = (profile: PersonsType): ThunkActionType 
     if (response.resultCode === 0) {
         dispatch(addColleague(profile.id))
         dispatch(setColleagueInProgress(profile.id));
-        dispatch(getColleague());
+        await dispatch(getColleague());
     }
 }
 

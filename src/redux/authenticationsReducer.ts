@@ -1,4 +1,4 @@
-import {APIHeader, APISecurity} from "../api/api";
+import {APIHeader, APISecurity, ResultCodeEnum, ResultCodeEnumWithCapcha} from "../api/api";
 import {stopSubmit} from "redux-form";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./reduxStore";
@@ -27,13 +27,14 @@ const authenticationsReducer = (state = initialState, action: ActionsTypes): Ini
             }
         case SETCAPTCHAURL:
             return {
-                ...state, captchaURL: action.url}
+                ...state, captchaURL: action.url
+            }
         default:
             return state;
     }
 }
 type ActionsTypes = SetPersonActionType | SetCaptchaURLActionType
-type SetPersonActionType ={
+type SetPersonActionType = {
     type: typeof SETPERSON
     personId: number | null
     email: string | null
@@ -41,28 +42,29 @@ type SetPersonActionType ={
     isAuthentications: boolean
 }
 export const setPerson = (personId: number | null, email: string | null, login: string | null,
-                          isAuthentications: boolean):SetPersonActionType => {
+                          isAuthentications: boolean): SetPersonActionType => {
     return {type: SETPERSON, personId, email, login, isAuthentications}
 }
 type SetCaptchaURLActionType = {
     type: typeof SETCAPTCHAURL
     url: string
 }
-export const setCaptchaURL = (url: string):SetCaptchaURLActionType => {
+export const setCaptchaURL = (url: string): SetCaptchaURLActionType => {
     return {type: SETCAPTCHAURL, url}
 }
 type ThunkActionType = ThunkAction<Promise<void>, AppStateType, any, ActionsTypes>
 export const getAuthMe = (): ThunkActionType => async (dispatch) => {
     let response = await APIHeader.getAuthMe();
-    if (response.resultCode === 0) {
+    if (response.resultCode === ResultCodeEnum.Success) {
         dispatch(setPerson(response.data.id, response.data.email, response.data.login, true))
     }
 }
 export const login = (formData: any): ThunkActionType => async (dispatch) => {
     let response = await APIHeader.login(formData);
-    if (response.data.resultCode === 0) {
+    if (response.resultCode === ResultCodeEnumWithCapcha.Success) {
         dispatch(getAuthMe());
-    } if(response.data.resultCode === 10){
+    }
+    if (response.resultCode === ResultCodeEnumWithCapcha.CapchaIsRequired) {
         dispatch(getCaptchaURL());
     } else {
         let action = stopSubmit("login", {_error: "login or password is wrong"});

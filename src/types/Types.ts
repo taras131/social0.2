@@ -43,3 +43,9 @@ export type MessagesType ={
     id: number
     text: string
 }
+export type LoginFormDataType = {
+    login: string,
+    password: string
+    rememberMe: boolean
+    captcha: null | string
+}
